@@ -21,6 +21,24 @@ class News extends InputFilter
 {
     public function init()
     {
+        $this->add([
+            'name' => 'newsId',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'Digits']
+            ],
+        ]);
 
+        $this->add([
+            'name' => 'userId',
+            'required' => true,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+                ['name' => 'Digits']
+            ],
+        ]);
     }
 } 

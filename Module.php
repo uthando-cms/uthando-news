@@ -42,9 +42,9 @@ class Module
         return include __DIR__ . '/config/inputFilter.config.php';
     }
 
-    public function getServiceConfig()
+    public function getUthandoServiceConfig()
     {
-        return include __DIR__ . '/config/service.config.php';
+        return include __DIR__ . '/config/UthandoServices.config.php';
     }
 
     public function getUthandoMapperConfig()
