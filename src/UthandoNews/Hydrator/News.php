@@ -39,6 +39,8 @@ class News extends AbstractHydrator
         return [
             'newsId'        => $object->getNewsId(),
             'userId'        => $object->getUserId(),
+            'title'         => $object->getTitle(),
+            'slug'          => $object->getSlug(),
             'image'         => $object->getImage(),
             'text'          => $object->getText(),
             'dateCreated'   => $this->extractValue('dateCreated', $object->getDateCreated()),

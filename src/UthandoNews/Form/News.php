@@ -32,6 +32,23 @@ class News extends Form
         ]);
 
         $this->add([
+            'name' => 'slug',
+            'type' => 'hidden',
+        ]);
+
+        $this->add([
+            'name' => 'title',
+            'type' => 'text',
+            'attributes' => [
+                'class' => 'form-control',
+                'placeholder' => 'Title',
+            ],
+            'options' => [
+                'label' => 'Title:',
+            ],
+        ]);
+
+        $this->add([
             'name' => 'image',
             'type' => 'text',
             'attributes' => [
@@ -39,7 +56,7 @@ class News extends Form
                 'placeholder' => 'Image',
             ],
             'options' => [
-                'label' => 'Options:',
+                'label' => 'Image:',
             ],
         ]);
 

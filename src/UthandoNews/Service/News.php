@@ -12,6 +12,7 @@
 namespace UthandoNews\Service;
 
 use UthandoCommon\Service\AbstractMapperService;
+use UthandoNews\Model\News as NewsModel;
 
 /**
  * Class News
@@ -20,4 +21,16 @@ use UthandoCommon\Service\AbstractMapperService;
 class News extends AbstractMapperService
 {
     protected $serviceAlias = 'UthandoNews';
+
+    /**
+     * @param $slug
+     * @return NewsModel|null
+     */
+    public function getBySlug($slug)
+    {
+        $slug = (string) $slug;
+        /* @var $mapper \UthandoNews\Mapper\News */
+        $mapper = $this->getMapper();
+        return $mapper->getBusinessBySlug($slug);
+    }
 } 

@@ -1,0 +1,8 @@
+
+<?php $this->headTitle('Edit News') ?>
+
+<?=$this->partial('uthando-news/news/news-form', [
+    'form' => $this->form,
+    'formAction' => 'edit',
+    'businessListId' => $this->model->getNewsId()
+]); ?>

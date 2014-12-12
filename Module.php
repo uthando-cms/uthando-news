@@ -11,12 +11,23 @@
 
 namespace UthandoNews;
 
+use UthandoNews\Event\ServiceListener;
+use Zend\Mvc\MvcEvent;
+
 /**
  * Class Module
  * @package UthandoNews
  */
 class Module
 {
+    public function onBootStrap(MvcEvent $e)
+    {
+        $app = $e->getApplication();
+        $eventManager = $app->getEventManager();
+
+        $eventManager->attachAggregate(new ServiceListener());
+    }
+
     public function getConfig()
     {
         return include __DIR__ . '/config/config.php';

@@ -12,6 +12,7 @@
 namespace UthandoNews\Mapper;
 
 use UthandoCommon\Mapper\AbstractDbMapper;
+use UthandoNews\Model\News as NewsModel;
 
 /**
  * Class News
@@ -21,4 +22,19 @@ class News extends AbstractDbMapper
 {
     protected $table = 'news';
     protected $primary = 'newsId';
+
+    /**
+     * @param $slug
+     * @return null|NewsModel
+     */
+    public function getBySlug($slug)
+    {
+        $select = $this->getSelect();
+        $select->where(['slug' => $slug]);
+
+        $rowSet = $this->fetchResult($select);
+        $row = $rowSet->current();
+
+        return $row;
+    }
 } 

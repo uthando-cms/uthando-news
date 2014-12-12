@@ -26,6 +26,25 @@ class News extends AbstractCrudController
 
     public function viewAction()
     {
+        $viewModel = new ViewModel([
+            'models' => $this->getPaginatorResults(),
+        ]);
 
+        if ($this->getRequest()->isXmlHttpRequest()) {
+            $viewModel->setTerminal(true);
+        }
+
+        return $viewModel;
+    }
+
+    public function newsItem()
+    {
+        $slug = $this->params()->fromRoute('news');
+
+        $model = $this->getService()->getBySlug($slug);
+
+        return [
+            'model' => $model,
+        ];
     }
 } 

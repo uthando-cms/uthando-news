@@ -6,6 +6,8 @@
 CREATE TABLE IF NOT EXISTS `news` (
   `newsId` int(10) unsigned zerofill NOT NULL AUTO_INCREMENT,
   `userId` int(10) unsigned zerofill NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
   `image` varchar(255) NOT NULL,
   `text` text NOT NULL,
   `dateCreated` datetime NOT NULL,
