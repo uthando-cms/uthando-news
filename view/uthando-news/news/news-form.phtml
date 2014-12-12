@@ -10,6 +10,11 @@ $form = $this->form;
 $routeArray = array('action' => $this->formAction);
 if (isset($this->businessListId)) $routeArray['id'] = $this->businessListId;
 
+if (!$form->get('userId')->getValue()) {
+    $userId = $this->identity()->getUserId();
+    $form->get('userId')->setValue($userId);
+}
+
 ?>
 <div class="row">
     <form class="col-md-12 form form-horizontal" method="post" action="<?=$this->url('admin/news/edit',
@@ -57,6 +62,13 @@ if (isset($this->businessListId)) $routeArray['id'] = $this->businessListId;
                     <fieldset>
                         <legend>HTML Content</legend>
                         <?=$this->formElement($form->get('text')); ?>
+                        <div class="<?php if ($form->get('text')->getMessages()) echo ' has-error'; ?>">
+                            <span class="help-block">
+                                <?=$this->formElementErrors($form->get('text'), [
+                                    'class' => 'list-unstyled'
+                                ]); ?>
+                            </span>
+                        </div>
                     </fieldset>
                 </div>
             </div>
@@ -95,7 +107,7 @@ if (isset($this->businessListId)) $routeArray['id'] = $this->businessListId;
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button id="business-image-save" type="button" class="btn btn-primary">Upload</button>
+                <button id="news-image-save" type="button" class="btn btn-primary">Upload</button>
             </div>
         </div>
     </div>
@@ -113,7 +125,7 @@ if (isset($this->businessListId)) $routeArray['id'] = $this->businessListId;
         $(this).find('.modal-body').html('<i class="fa fa-spinner fa-spin"></i>&nbsp;Loading');
 
         if (admin.upload && admin.upload.status) {
-            $('#news-list-image').val(admin.upload.image.name);
+            $('#news-image').val(admin.upload.image.name);
         }
     });
 

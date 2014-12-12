@@ -54,6 +54,7 @@ class News extends Form
             'attributes' => [
                 'class' => 'form-control',
                 'placeholder' => 'Image',
+                'id' => 'news-image',
             ],
             'options' => [
                 'label' => 'Image:',
