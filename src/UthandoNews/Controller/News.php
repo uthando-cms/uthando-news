@@ -23,4 +23,9 @@ class News extends AbstractCrudController
     protected $serviceName = 'UthandoNews';
     protected $route = 'admin/news';
     protected $routes = [];
+
+    public function viewAction()
+    {
+
+    }
 } 

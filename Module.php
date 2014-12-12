@@ -44,7 +44,7 @@ class Module
 
     public function getUthandoServiceConfig()
     {
-        return include __DIR__ . '/config/UthandoServices.config.php';
+        return include __DIR__ . '/config/uthandoServices.config.php';
     }
 
     public function getUthandoMapperConfig()
