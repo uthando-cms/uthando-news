@@ -11,16 +11,26 @@
 
 namespace UthandoNews\Service;
 
-use UthandoCommon\Service\AbstractMapperService;
+use UthandoCommon\Service\AbstractRelationalMapperService;
 use UthandoNews\Model\News as NewsModel;
 
 /**
  * Class News
  * @package UthandoNews\Service
  */
-class News extends AbstractMapperService
+class News extends AbstractRelationalMapperService
 {
     protected $serviceAlias = 'UthandoNews';
+
+    /**
+     * @var array
+     */
+    protected $referenceMap = [
+        'user'  => [
+            'refCol'    => 'userId',
+            'service'   => 'UthandoUser\Service\User',
+        ],
+    ];
 
     /**
      * @param $slug
@@ -31,6 +41,12 @@ class News extends AbstractMapperService
         $slug = (string) $slug;
         /* @var $mapper \UthandoNews\Mapper\News */
         $mapper = $this->getMapper();
-        return $mapper->getBusinessBySlug($slug);
+        $model = $mapper->getBusinessBySlug($slug);
+
+        if ($model) {
+            $this->populate($model, true);
+        }
+
+        return $model;
     }
 } 

@@ -15,6 +15,7 @@ use UthandoCommon\Model\DateCreatedTrait;
 use UthandoCommon\Model\DateModifiedTrait;
 use UthandoCommon\Model\Model;
 use UthandoCommon\Model\ModelInterface;
+use UthandoUser\Model\User;
 use UthandoUser\Model\UserIdTrait;
 
 /**
@@ -52,6 +53,11 @@ class News implements ModelInterface
      * @var string
      */
     protected $text;
+
+    /**
+     * @var User
+     */
+    protected $user;
 
     /**
      * @return string
@@ -140,6 +146,25 @@ class News implements ModelInterface
     public function setText($text)
     {
         $this->text = $text;
+        return $this;
+    }
+
+    /**
+     * @return User
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param User $user
+     * @return $this
+     */
+    public function setUser($user)
+    {
+        $this->user = $user;
+
         return $this;
     }
 } 
