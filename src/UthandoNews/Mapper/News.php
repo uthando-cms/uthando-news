@@ -30,7 +30,13 @@ class News extends AbstractDbMapper
     public function getBySlug($slug)
     {
         $select = $this->getSelect();
-        $select->where(['slug' => $slug]);
+        $select->join(
+            'article',
+            'news.articleId=article.articleId',
+            array(),
+            Select::JOIN_LEFT
+        );
+        $select->where(['article.slug' => $slug]);
 
         $rowSet = $this->fetchResult($select);
         $row = $rowSet->current();

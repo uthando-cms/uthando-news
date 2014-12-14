@@ -12,6 +12,7 @@
 namespace UthandoNews\Controller;
 
 use UthandoCommon\Controller\AbstractCrudController;
+use Zend\View\Model\ViewModel;
 
 /**
  * Class News
@@ -37,7 +38,7 @@ class News extends AbstractCrudController
         return $viewModel;
     }
 
-    public function newsItem()
+    public function newsItemAction()
     {
         $slug = $this->params()->fromRoute('news');
 

@@ -19,10 +19,10 @@
             <?php foreach($this->models as $row): ?>
                 <tr>
                     <td><?=$this->escapeHtml($row->getNewsId()); ?></td>
-                    <td><?=$this->escapeHtml($row->getTitle()); ?></td>
-                    <td><?=$this->escapeHtml($row->getUserId());?></td>
-                    <td><?=$this->escapeHtml($this->formatDate($row->getDateCreated())); ?></td>
-                    <td><?=$this->escapeHtml($this->formatDate($row->getDateModified())); ?></td>
+                    <td><?=$this->escapeHtml($row->getArticle()->getTitle()); ?></td>
+                    <td><?=$this->escapeHtml($row->getArticle()->getUser()->getFullName());?></td>
+                    <td><?=$this->escapeHtml($this->formatDate($row->getArticle()->getDateCreated())); ?></td>
+                    <td><?=$this->escapeHtml($this->formatDate($row->getArticle()->getDateModified())); ?></td>
                     <td>
                         <?=$this->partial('uthando-admin/partial/edit-actions', [
                             'pk'		=> 'newsId',

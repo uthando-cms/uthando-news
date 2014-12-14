@@ -11,12 +11,10 @@
 
 namespace UthandoNews\Model;
 
-use UthandoCommon\Model\DateCreatedTrait;
+use UthandoArticle\Model\Article;
 use UthandoCommon\Model\DateModifiedTrait;
 use UthandoCommon\Model\Model;
 use UthandoCommon\Model\ModelInterface;
-use UthandoUser\Model\User;
-use UthandoUser\Model\UserIdTrait;
 
 /**
  * Class News
@@ -25,8 +23,6 @@ use UthandoUser\Model\UserIdTrait;
 class News implements ModelInterface
 {
     use Model,
-        UserIdTrait,
-        DateCreatedTrait,
         DateModifiedTrait;
 
     /**
@@ -35,14 +31,9 @@ class News implements ModelInterface
     protected $newsId;
 
     /**
-     * @var string
+     * @var int
      */
-    protected $title;
-
-    /**
-     * @var string
-     */
-    protected $slug;
+    protected $articleId = 0;
 
     /**
      * @var string
@@ -50,48 +41,44 @@ class News implements ModelInterface
     protected $image;
 
     /**
-     * @var string
+     * @var Article
      */
-    protected $text;
+    protected $article;
 
     /**
-     * @var User
+     * @return int
      */
-    protected $user;
-
-    /**
-     * @return string
-     */
-    public function getTitle()
+    public function getNewsId()
     {
-        return $this->title;
+        return $this->newsId;
     }
 
     /**
-     * @param string $title
+     * @param int $newsId
      * @return $this
      */
-    public function setTitle($title)
+    public function setNewsId($newsId)
     {
-        $this->title = $title;
+        $this->newsId = $newsId;
         return $this;
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getSlug()
+    public function getArticleId()
     {
-        return $this->slug;
+        return $this->articleId;
     }
 
     /**
-     * @param string $slug
+     * @param int $articleId
      * @return $this
      */
-    public function setSlug($slug)
+    public function setArticleId($articleId)
     {
-        $this->slug = $slug;
+        $this->articleId = $articleId;
+
         return $this;
     }
 
@@ -114,56 +101,20 @@ class News implements ModelInterface
     }
 
     /**
-     * @return int
+     * @return Article
      */
-    public function getNewsId()
+    public function getArticle()
     {
-        return $this->newsId;
+        return $this->article;
     }
 
     /**
-     * @param int $newsId
+     * @param Article $article
      * @return $this
      */
-    public function setNewsId($newsId)
+    public function setArticle($article)
     {
-        $this->newsId = $newsId;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getText()
-    {
-        return $this->text;
-    }
-
-    /**
-     * @param string $text
-     * @return $this
-     */
-    public function setText($text)
-    {
-        $this->text = $text;
-        return $this;
-    }
-
-    /**
-     * @return User
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * @param User $user
-     * @return $this
-     */
-    public function setUser($user)
-    {
-        $this->user = $user;
+        $this->article = $article;
 
         return $this;
     }

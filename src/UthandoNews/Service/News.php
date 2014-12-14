@@ -13,6 +13,8 @@ namespace UthandoNews\Service;
 
 use UthandoCommon\Service\AbstractRelationalMapperService;
 use UthandoNews\Model\News as NewsModel;
+use Zend\EventManager\Event;
+use Zend\Form\Form;
 
 /**
  * Class News
@@ -26,11 +28,60 @@ class News extends AbstractRelationalMapperService
      * @var array
      */
     protected $referenceMap = [
-        'user'  => [
-            'refCol'    => 'userId',
-            'service'   => 'UthandoUser\Service\User',
+        'article'  => [
+            'refCol'    => 'articleId',
+            'service'   => 'UthandoArticle\Service\Article',
         ],
     ];
+
+    /**
+     * Attach events
+     */
+    public function attachEvents()
+    {
+        $this->getEventManager()->attach([
+            'pre.form'
+        ], [$this, 'preForm']);
+
+        $this->getEventManager()->attach([
+            'pre.save'
+        ], [$this, 'preSave']);
+    }
+
+    /**
+     * @param int $id
+     * @param null $col
+     * @return array|mixed|\UthandoCommon\Model\ModelInterface
+     */
+    public function getById($id, $col = null)
+    {
+        $article = parent::getById($id, $col);
+        $this->populate($article, true);
+
+        return $article;
+    }
+
+    public function preForm(Event $e)
+    {
+        $data = $e->getParam('data');
+        $data['article']['slug'] = $data['article']['title'];
+        $e->setParam('data', $data);
+    }
+
+    public function preSave(Event $e)
+    {
+        $articleService = $this->getService('UthandoArticle\Service\Article');
+        $model = $e->getParam('data');
+        $article = $model->getArticle();
+        $article->setDateModified();
+        $result = $articleService->save($article);
+
+        if (!$model->getArticleId()) {
+            $model->setArticleId($result);
+        }
+
+        $e->setParam('data', $model);
+    }
 
     /**
      * @param $slug
@@ -41,7 +92,7 @@ class News extends AbstractRelationalMapperService
         $slug = (string) $slug;
         /* @var $mapper \UthandoNews\Mapper\News */
         $mapper = $this->getMapper();
-        $model = $mapper->getBusinessBySlug($slug);
+        $model = $mapper->getBySlug($slug);
 
         if ($model) {
             $this->populate($model, true);

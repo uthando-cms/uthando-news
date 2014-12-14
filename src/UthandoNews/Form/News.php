@@ -12,6 +12,8 @@
 namespace UthandoNews\Form;
 
 use Zend\Form\Form;
+use Zend\InputFilter\InputFilter;
+use Zend\Stdlib\Hydrator\ClassMethods;
 
 /**
  * Class News
@@ -27,25 +29,8 @@ class News extends Form
         ]);
 
         $this->add([
-            'name' => 'userId',
+            'name' => 'articleId',
             'type' => 'hidden',
-        ]);
-
-        $this->add([
-            'name' => 'slug',
-            'type' => 'hidden',
-        ]);
-
-        $this->add([
-            'name' => 'title',
-            'type' => 'text',
-            'attributes' => [
-                'class' => 'form-control',
-                'placeholder' => 'Title',
-            ],
-            'options' => [
-                'label' => 'Title:',
-            ],
         ]);
 
         $this->add([
@@ -62,16 +47,10 @@ class News extends Form
         ]);
 
         $this->add([
-            'name' => 'text',
-            'type' => 'textarea',
-            'attributes' => [
-                'class' => 'editable-textarea form-control',
-                'placeholder' => 'Content',
-                'id' => 'news-content-textarea',
-                'rows' => 25,
-            ],
+            'type' => 'UthandoArticleFieldSet',
+            'name' => 'article',
             'options' => [
-                'label' => 'Content:',
+                'label' => 'News Article',
             ],
         ]);
     }

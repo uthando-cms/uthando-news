@@ -7,12 +7,16 @@ echo $this->headScript()
     ->appendFile($this->themePath('/assets/js/LiveEditor/scripts/common/webfont.js'));
 
 $form = $this->form;
-$routeArray = array('action' => $this->formAction);
-if (isset($this->businessListId)) $routeArray['id'] = $this->businessListId;
+$form->prepare();
 
-if (!$form->get('userId')->getValue()) {
+$article = $form->get('article');
+
+$routeArray = array('action' => $this->formAction);
+if (isset($this->newsId)) $routeArray['id'] = $this->newsId;
+
+if (!$article->get('userId')->getValue()) {
     $userId = $this->identity()->getUserId();
-    $form->get('userId')->setValue($userId);
+    $article->get('userId')->setValue($userId);
 }
 
 ?>
@@ -20,17 +24,29 @@ if (!$form->get('userId')->getValue()) {
     <form class="col-md-12 form form-horizontal" method="post" action="<?=$this->url('admin/news/edit',
         $routeArray) ?>">
         <fieldset>
-            <legend><?=ucwords($this->formAction); ?> Business Form:</legend>
+            <legend><?=ucwords($this->formAction); ?> News Form:</legend>
             <div class="row">
                 <div class="col-sm-6">
                     <fieldset>
                         <legend>Details</legend>
-                        <div class="form-group<?php if ($form->get('title')->getMessages()) echo ' has-error'; ?>">
-                            <label class="col-md-4 control-label" for="title"><?=$form->get('title')->getLabel();?></label>
+                        <div class="form-group<?php if ($article->get('title')->getMessages()) echo ' has-error'; ?>">
+                            <label class="col-md-4 control-label" for="title"><?=$article->get('title')->getLabel();?></label>
                             <div class="col-md-8">
-                                <?=$this->formelement($form->get('title')); ?>
+                                <?=$this->formelement($article->get('title')); ?>
                                 <span class="help-block">
-                            <?=$this->formElementErrors($form->get('title'), [
+                            <?=$this->formElementErrors($article->get('title'), [
+                                'class' => 'list-unstyled'
+                            ]); ?>
+                            </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group<?php if ($article->get('description')->getMessages()) echo ' has-error'; ?>">
+                            <label class="col-md-4 control-label" for="description"><?=$article->get('description')->getLabel();?></label>
+                            <div class="col-md-8">
+                                <?=$this->formelement($article->get('description')); ?>
+                                <span class="help-block">
+                            <?=$this->formElementErrors($article->get('description'), [
                                 'class' => 'list-unstyled'
                             ]); ?>
                             </span>
@@ -61,10 +77,10 @@ if (!$form->get('userId')->getValue()) {
                 <div class="col-md-6">
                     <fieldset>
                         <legend>HTML Content</legend>
-                        <?=$this->formElement($form->get('text')); ?>
-                        <div class="<?php if ($form->get('text')->getMessages()) echo ' has-error'; ?>">
+                        <?=$this->formElement($article->get('content')); ?>
+                        <div class="<?php if ($article->get('content')->getMessages()) echo ' has-error'; ?>">
                             <span class="help-block">
-                                <?=$this->formElementErrors($form->get('text'), [
+                                <?=$this->formElementErrors($article->get('content'), [
                                     'class' => 'list-unstyled'
                                 ]); ?>
                             </span>
@@ -73,9 +89,14 @@ if (!$form->get('userId')->getValue()) {
                 </div>
             </div>
 
-            <?=$this->formElement($form->get('newsId')); ?>
-            <?=$this->formElement($form->get('userId')); ?>
-            <?=$this->formElement($form->get('slug')); ?>
+            <?=$this->formHidden($form->get('newsId')); ?>
+            <?=$this->formHidden($article->get('articleId'));?>
+            <?=$this->formHidden($article->get('userId')); ?>
+            <?=$this->formHidden($article->get('slug')); ?>
+            <?=$this->formHidden($article->get('pageHits')); ?>
+            <?=$this->formHidden($article->get('dateCreated')); ?>
+            <?=$this->formHidden($article->get('dateModified')); ?>
+            <?=$this->formHidden($article->get('resource')); ?>
 
             <input type="hidden" name="action" value="<?=$this->formAction; ?>">
 
@@ -133,7 +154,7 @@ if (!$form->get('userId')->getValue()) {
         $('#upload-form').submit();
     });
 
-    $('#news-content-textarea').liveEdit({
+    $('#article-content-textarea').liveEdit({
         height: '325px',
         css: [
             'http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css',
@@ -148,7 +169,7 @@ if (!$form->get('userId')->getValue()) {
             ["group5", "", ["Undo", "Redo", "FullScreen", "SourceDialog"]]
         ] /* Toolbar configuration */
     });
-    $('#news-content-textarea').data('liveEdit').startedit(); /* Run the Editor */
+    $('#article-content-textarea').data('liveEdit').startedit(); /* Run the Editor */
 
 </script>
 

@@ -12,20 +12,25 @@
 namespace UthandoNews\Hydrator;
 
 use UthandoCommon\Hydrator\AbstractHydrator;
-use UthandoCommon\Hydrator\Strategy\DateTime;
+use UthandoCommon\Hydrator\Strategy\DateTime as DateTimeStrategy;
 use UthandoNews\Model\News as NewsModel;
 
+/**
+ * Class News
+ * @package UthandoNews\Hydrator
+ */
 class News extends AbstractHydrator
 {
     public function __construct()
     {
         parent::__construct();
 
-        $dateTime = new DateTime();
+        $dateTime = new DateTimeStrategy();
 
-        $this->addStrategy('dateCreated', $dateTime);
+        //$this->addStrategy('dateCreated', $dateTime);
         $this->addStrategy('dateModified', $dateTime);
 
+        return $this;
     }
 
     /**
@@ -38,12 +43,8 @@ class News extends AbstractHydrator
     {
         return [
             'newsId'        => $object->getNewsId(),
-            'userId'        => $object->getUserId(),
-            'title'         => $object->getTitle(),
-            'slug'          => $object->getSlug(),
+            'articleId'     => $object->getArticleId(),
             'image'         => $object->getImage(),
-            'text'          => $object->getText(),
-            'dateCreated'   => $this->extractValue('dateCreated', $object->getDateCreated()),
             'dateModified'  => $this->extractValue('dateModified', $object->getDateModified()),
         ];
     }

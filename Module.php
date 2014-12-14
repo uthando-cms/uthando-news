@@ -25,7 +25,7 @@ class Module
         $app = $e->getApplication();
         $eventManager = $app->getEventManager();
 
-        $eventManager->attachAggregate(new ServiceListener());
+        //$eventManager->attachAggregate(new ServiceListener());
     }
 
     public function getConfig()
