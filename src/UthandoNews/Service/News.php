@@ -14,7 +14,6 @@ namespace UthandoNews\Service;
 use UthandoCommon\Service\AbstractRelationalMapperService;
 use UthandoNews\Model\News as NewsModel;
 use Zend\EventManager\Event;
-use Zend\Form\Form;
 
 /**
  * Class News
@@ -61,6 +60,9 @@ class News extends AbstractRelationalMapperService
         return $article;
     }
 
+    /**
+     * @param Event $e
+     */
     public function preForm(Event $e)
     {
         $data = $e->getParam('data');
@@ -68,6 +70,9 @@ class News extends AbstractRelationalMapperService
         $e->setParam('data', $data);
     }
 
+    /**
+     * @param Event $e
+     */
     public function preSave(Event $e)
     {
         $articleService = $this->getService('UthandoArticle\Service\Article');

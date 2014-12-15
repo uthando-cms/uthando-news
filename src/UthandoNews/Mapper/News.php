@@ -13,6 +13,7 @@ namespace UthandoNews\Mapper;
 
 use UthandoCommon\Mapper\AbstractDbMapper;
 use UthandoNews\Model\News as NewsModel;
+use Zend\Db\Sql\Select;
 
 /**
  * Class News
