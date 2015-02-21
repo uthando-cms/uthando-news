@@ -44,4 +44,17 @@ class News extends AbstractDbMapper
 
         return $row;
     }
+    
+    public function search(array $search, $sort, $select = null)
+    {
+        $select = $this->getSelect();
+        $select->join(
+            'article',
+            'news.articleId=article.articleId',
+            array(),
+            Select::JOIN_LEFT
+        );
+    
+        return parent::search($search, $sort, $select);
+    }
 } 

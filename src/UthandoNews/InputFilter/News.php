@@ -43,7 +43,7 @@ class News extends InputFilter
 
         $this->add([
             'name' => 'image',
-            'required' => true,
+            'required' => false,
             'filters' => [
                 ['name' => 'StringTrim'],
                 ['name' => 'StripTags'],

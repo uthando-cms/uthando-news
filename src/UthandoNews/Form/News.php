@@ -12,8 +12,6 @@
 namespace UthandoNews\Form;
 
 use Zend\Form\Form;
-use Zend\InputFilter\InputFilter;
-use Zend\Stdlib\Hydrator\ClassMethods;
 
 /**
  * Class News

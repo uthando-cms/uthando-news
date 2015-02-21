@@ -20,15 +20,21 @@ use Zend\View\Model\ViewModel;
  */
 class News extends AbstractCrudController
 {
-    protected $searchDefaultParams = array('sort' => 'newsId');
+    protected $controllerSearchOverrides = ['sort' => 'newsId'];
     protected $serviceName = 'UthandoNews';
     protected $route = 'admin/news';
     protected $routes = [];
 
     public function viewAction()
     {
+        $this->searchDefaultParams = [
+            'sort' => '-dateCreated',
+            'count' => 5,
+            'page' => $this->params()->fromRoute('page'),
+        ];
+        
         $viewModel = new ViewModel([
-            'models' => $this->getPaginatorResults(),
+            'models' => $this->getPaginatorResults(false),
         ]);
 
         if ($this->getRequest()->isXmlHttpRequest()) {
