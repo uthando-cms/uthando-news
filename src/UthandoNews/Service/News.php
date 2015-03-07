@@ -29,7 +29,7 @@ class News extends AbstractRelationalMapperService
     protected $referenceMap = [
         'article'  => [
             'refCol'    => 'articleId',
-            'service'   => 'UthandoArticle\Service\Article',
+            'service'   => 'UthandoArticle',
         ],
     ];
 
@@ -75,7 +75,7 @@ class News extends AbstractRelationalMapperService
      */
     public function preSave(Event $e)
     {
-        $articleService = $this->getService('UthandoArticle\Service\Article');
+        $articleService = $this->getService('UthandoArticle');
         $model = $e->getParam('data');
         $article = $model->getArticle();
         $article->setDateModified();
