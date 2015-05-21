@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-0": {
-            "UthandoMail": "src/"
+            "UthandoNews": "src/"
         },
         "classmap": [
             "./Module.php"

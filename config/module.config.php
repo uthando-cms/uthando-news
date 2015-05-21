@@ -27,6 +27,45 @@ return [
             ],
         ],
     ],
+    'controllers' => [
+        'invokables' => [
+            'UthandoNews\Controller\News' => 'UthandoNews\Controller\News',
+        ],
+    ],
+    'form_elements' => [
+        'invokables' => [
+            'UthandoNews'           => 'UthandoNews\Form\News',
+            'UthandoNewsFieldSet'   => 'UthandoNews\Form\NewsFieldSet',
+        ],
+    ],
+    'hydrators' => [
+        'invokables' => [
+            'UthandoNews' => 'UthandoNews\Hydrator\News',
+        ],
+    ],
+    'input_filters' => [
+        'invokables' => [
+            'UthandoNews' => 'UthandoNews\InputFilter\News',
+        ],
+    ],
+    'uthando_mappers' => [
+        'invokables' => [
+            'UthandoNews' => 'UthandoNews\Mapper\News',
+        ],
+    ],
+    'uthando_models' => [
+        'invokables' => [
+            'UthandoNews' => 'UthandoNews\Model\News',
+        ]
+    ],
+    'uthando_services' => [
+        'invokables' => [
+            'UthandoNews' => 'UthandoNews\Service\News',
+        ],
+    ],
+    'view_manager' => [
+        'template_map' => include __DIR__ . '/../template_map.php'
+    ],
     'router' => [
         'routes' => [
             'news-list' => [
@@ -151,8 +190,5 @@ return [
                 ],
             ],
         ],
-    ],
-    'view_manager' => [
-        'template_map' => include __DIR__ . '/../template_map.php'
     ],
 ];
