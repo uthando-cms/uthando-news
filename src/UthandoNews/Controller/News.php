@@ -6,7 +6,7 @@
  * @author    Shaun Freeman <shaun@shaunfreeman.co.uk>
  * @link      https://github.com/uthando-cms for the canonical source repository
  * @copyright Copyright (c) 2014 Shaun Freeman. (http://www.shaunfreeman.co.uk)
- * @license   see LICENSE.txt
+ * @license   see LICENSE
  */
 
 namespace UthandoNews\Controller;
@@ -16,6 +16,7 @@ use Zend\View\Model\ViewModel;
 
 /**
  * Class News
+ *
  * @package UthandoNews\Controller
  */
 class News extends AbstractCrudController
