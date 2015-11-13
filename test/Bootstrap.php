@@ -1,6 +1,6 @@
 <?php
 
-namespace UthandoTwitterTest;
+namespace UthandoNewsTest;
 
 use Zend\Loader\AutoloaderFactory;
 use Zend\Mvc\Service\ServiceManagerConfig;
