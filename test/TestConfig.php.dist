@@ -2,8 +2,8 @@
 return [
     'modules' => [
         'Application',
-        'UthandoNews',
         'UthandoCommon',
+        'UthandoNews',
     ],
     'module_listener_options' => [
         'module_paths' => [
