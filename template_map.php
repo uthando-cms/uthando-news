@@ -8,4 +8,5 @@ return array(
     'uthando-news/news/news-form' => __DIR__ . '/view/uthando-news/news/news-form.phtml',
     'uthando-news/news/news-item' => __DIR__ . '/view/uthando-news/news/news-item.phtml',
     'uthando-news/news/view'      => __DIR__ . '/view/uthando-news/news/view.phtml',
+    'uthando-news/settings/index' => __DIR__ . '/view/uthando-news/settings/index.phtml',
 );

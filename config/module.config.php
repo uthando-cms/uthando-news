@@ -3,13 +3,16 @@
 return [
     'controllers' => [
         'invokables' => [
-            'UthandoNews\Controller\News' => 'UthandoNews\Controller\News',
+            'UthandoNews\Controller\News'       => 'UthandoNews\Controller\News',
+            'UthandoNews\Controller\Settings'   => 'UthandoNews\Controller\Settings',
         ],
     ],
     'form_elements' => [
         'invokables' => [
-            'UthandoNews'           => 'UthandoNews\Form\News',
-            'UthandoNewsFieldSet'   => 'UthandoNews\Form\NewsFieldSet',
+            'UthandoNews'                   => 'UthandoNews\Form\News',
+            'UthandoNewsFeedFieldSet'       => 'UthandoNews\Form\NewsFeedFieldSet',
+            'UthandoNewsOptionsFieldSet'    => 'UthandoNews\Form\NewsOptionsFieldSet',
+            'UthandoNewsSettings'           => 'UthandoNews\Form\NewsSettings',
         ],
     ],
     'hydrators' => [
@@ -21,6 +24,12 @@ return [
         'invokables' => [
             'UthandoNews' => 'UthandoNews\InputFilter\News',
         ],
+    ],
+    'service_manager' => [
+        'factories' => [
+            'UthandoNewsFeedOptions'    => 'UthandoNews\Service\NewsFeedOptionsFactory',
+            'UthandoNewsOptions'        => 'UthandoNews\Service\NewsOptionsFactory',
+        ]
     ],
     'uthando_mappers' => [
         'invokables' => [
@@ -38,6 +47,9 @@ return [
         ],
     ],
     'view_manager' => [
+        'strategies' => [
+            'ViewFeedStrategy',
+        ],
         'template_map' => include __DIR__ . '/../template_map.php'
     ],
     'router' => [
@@ -50,7 +62,6 @@ return [
                         '__NAMESPACE__' => 'UthandoNews\Controller',
                         'controller'    => 'News',
                         'action'        => 'view',
-                        'force-ssl'     => 'http'
                     ],
                 ],
                 'may_terminate' => true,
@@ -65,7 +76,6 @@ return [
                             'defaults'      => [
                                 'action'        => 'view',
                                 'page'          => 1,
-                                'force-ssl'     => 'ssl'
                             ],
                         ],
                     ],
@@ -82,7 +92,17 @@ return [
                         '__NAMESPACE__' => 'UthandoNews\Controller',
                         'controller'    => 'News',
                         'action'        => 'news-item',
-                        'force-ssl'     => 'http'
+                    ],
+                ],
+            ],
+            'news-feed' => [
+                'type' => 'Literal',
+                'options' => [
+                    'route' => '/news/feed',
+                    'defaults' => [
+                        '__NAMESPACE__' => 'UthandoNews\Controller',
+                        'controller'    => 'News',
+                        'action'        => 'feed',
                     ],
                 ],
             ],

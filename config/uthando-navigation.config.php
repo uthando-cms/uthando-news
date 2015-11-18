@@ -3,6 +3,20 @@
 return [
     'navigation' => [
         'admin' => [
+            'admin' => [
+                'pages' => [
+                    'settings' => [
+                        'pages' => [
+                            'news-settings' => [
+                                'label' => 'News',
+                                'action' => 'index',
+                                'route' => 'admin/news/settings',
+                                'resource' => 'menu:admin',
+                            ],
+                        ],
+                    ],
+                ],
+            ],
             'news' => [
                 'label' => 'News',
                 'pages' => [
@@ -17,6 +31,12 @@ return [
                         'action'    => 'add',
                         'route'     => 'admin/news/edit',
                         'resource'  => 'menu:admin'
+                    ],
+                    'news-settings' => [
+                        'label' => 'Settings',
+                        'action' => 'index',
+                        'route' => 'admin/news/settings',
+                        'resource' => 'menu:admin',
                     ],
                 ],
                 'route'     => 'admin/news',

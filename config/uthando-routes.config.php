@@ -34,6 +34,7 @@ return [
                                         'force-ssl'     => 'ssl'
                                     ],
                                 ],
+                                'may_terminate' => true,
                             ],
                             'page' => [
                                 'type'    => 'Segment',
@@ -48,6 +49,19 @@ return [
                                         'force-ssl'     => 'ssl'
                                     ],
                                 ],
+                                'may_terminate' => true,
+                            ],
+                            'settings' => [
+                                'type' => 'Segment',
+                                'options' => [
+                                    'route' => '/settings',
+                                    'defaults' => [
+                                        'controller' => 'Settings',
+                                        'action' => 'index',
+                                        'force-ssl' => 'ssl'
+                                    ]
+                                ],
+                                'may_terminate' => true,
                             ],
                         ],
                     ],
