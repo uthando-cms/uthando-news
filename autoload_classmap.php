@@ -4,6 +4,7 @@ return array(
     'UthandoNews\Module'                         => __DIR__ . '/Module.php',
     'UthandoNews\Controller\News'                => __DIR__ . '/src/UthandoNews/Controller/News.php',
     'UthandoNews\Controller\Settings'            => __DIR__ . '/src/UthandoNews/Controller/Settings.php',
+    'UthandoNews\Event\SiteMapListener'          => __DIR__ . '/src/UthandoNews/Event/SiteMapListener.php',
     'UthandoNews\Form\News'                      => __DIR__ . '/src/UthandoNews/Form/News.php',
     'UthandoNews\Form\NewsFeedFieldSet'          => __DIR__ . '/src/UthandoNews/Form/NewsFeedFieldSet.php',
     'UthandoNews\Form\NewsOptionsFieldSet'       => __DIR__ . '/src/UthandoNews/Form/NewsOptionsFieldSet.php',
