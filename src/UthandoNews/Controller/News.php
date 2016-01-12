@@ -53,7 +53,11 @@ class News extends AbstractCrudController
 
     public function newsItemAction()
     {
-        $slug = $this->params()->fromRoute('news-item');
+        $slug = $this->params()->fromRoute('news-item', null);
+
+        if (null === $slug) {
+            return $this->redirect()->toRoute('news-list');
+        }
 
         $model = $this->getService()->getBySlug($slug);
 
