@@ -19,6 +19,9 @@ return [
             ],
             'news' => [
                 'label' => 'News',
+                'params' => [
+                    'icon' => 'fa-newspaper-o',
+                ],
                 'pages' => [
                     'list' => [
                         'label'     => 'List All News Items',
