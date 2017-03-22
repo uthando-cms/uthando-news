@@ -59,11 +59,21 @@ class News extends AbstractCrudController
             return $this->redirect()->toRoute('news-list');
         }
 
-        $model = $this->getService()->getBySlug($slug);
+        $viewModel  = new ViewModel();
+        $model      = $this->getService()->getBySlug($slug);
 
-        return [
-            'model' => $model,
-        ];
+        if (!$model) {
+            $viewModel->setTemplate('uthando-news/news/404');
+            return $viewModel;
+        } else {
+            $layout = ($model->getLayout()) ?: 'uthando-news/news/news-item';
+            $viewModel->setTemplate($layout);
+        }
+
+        $this->getService()->addPageHit($model);
+
+        return $viewModel->setVariables(['model' => $model]);
+
     }
 
     public function feedAction()

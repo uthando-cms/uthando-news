@@ -118,4 +118,15 @@ class News extends AbstractRelationalMapperService
 
         return $model;
     }
+
+    /**
+     * @param NewsModel $newsModel
+     */
+    public function addPageHit(NewsModel $newsModel)
+    {
+        $pageHits = $newsModel->getPageHits();
+        $pageHits++;
+        $newsModel->setPageHits($pageHits);
+        $this->save($newsModel);
+    }
 } 
