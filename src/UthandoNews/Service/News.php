@@ -28,9 +28,9 @@ class News extends AbstractRelationalMapperService
      * @var array
      */
     protected $referenceMap = [
-        'article'  => [
-            'refCol'    => 'articleId',
-            'service'   => 'UthandoArticle',
+        'user' => [
+            'refCol' => 'userId',
+            'service' => 'UthandoUser',
         ],
     ];
 
@@ -40,12 +40,52 @@ class News extends AbstractRelationalMapperService
     public function attachEvents()
     {
         $this->getEventManager()->attach([
-            'pre.form'
-        ], [$this, 'preForm']);
+            'form.init'
+        ], [$this, 'setSlug']);
 
         $this->getEventManager()->attach([
-            'pre.save'
-        ], [$this, 'preSave']);
+            'pre.add', 'pre.edit'
+        ], [$this, 'setValidation']);
+    }
+
+    /**
+     * @param Event $e
+     */
+    public function setSlug(Event $e)
+    {
+        $data = $e->getParam('data');
+
+        if (null === $data) {
+            return;
+        }
+
+        if ($data instanceof NewsModel) {
+            $data->setSlug($data->getTitle());
+        } elseif (is_array($data)) {
+            $data['slug'] = $data['slug'];
+        }
+
+        $e->setParam('data', $data);
+    }
+
+    /**
+     * @param Event $e
+     */
+    public function setValidation(Event $e)
+    {
+        $form = $e->getParam('form');
+        $model = $e->getParam('model');
+        $post = $e->getParam('post');
+
+        if ($model instanceof NewsModel) {
+            $model->setDateModified();
+        }
+
+        $form->setValidationGroup([
+            'newsId', 'userId', 'title', 'slug',
+            'content', 'description',
+            'image', 'lead', 'layout',
+        ]);
     }
 
     /**
@@ -55,38 +95,10 @@ class News extends AbstractRelationalMapperService
      */
     public function getById($id, $col = null)
     {
-        $article = parent::getById($id, $col);
-        $this->populate($article, true);
+        $model = parent::getById($id, $col);
+        $this->populate($model, true);
 
-        return $article;
-    }
-
-    /**
-     * @param Event $e
-     */
-    public function preForm(Event $e)
-    {
-        $data = $e->getParam('data');
-        $data['article']['slug'] = $data['article']['title'];
-        $e->setParam('data', $data);
-    }
-
-    /**
-     * @param Event $e
-     */
-    public function preSave(Event $e)
-    {
-        $articleService = $this->getService('UthandoArticle');
-        $model = $e->getParam('data');
-        $article = $model->getArticle();
-        $article->setDateModified();
-        $result = $articleService->save($article);
-
-        if (!$model->getArticleId()) {
-            $model->setArticleId($result);
-        }
-
-        $e->setParam('data', $model);
+        return $model;
     }
 
     /**

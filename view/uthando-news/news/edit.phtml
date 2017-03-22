@@ -1,8 +1,77 @@
-
 <?php $this->headTitle('Edit News') ?>
+<?php $this->layout()->pageTitle = $this->translate('Edit News');?>
 
-<?=$this->partial('uthando-news/news/news-form', [
-    'form' => $this->form,
-    'formAction' => 'edit',
-    'newsId' => $this->model->getNewsId()
-]); ?>
+<?php $this->placeholder('header-buttons')->captureStart();?>
+<button type="submit" form="form-news" data-toggle="tooltip" title="<?=$this->translate('Save');?>" class="btn btn-primary">
+    <i class="fa fa-save"></i>
+</button>
+<a href="<?=$this->url('admin/news');?>" data-toggle="tooltip" title="<?=$this->translate('Cancel');?>" class="btn btn-default">
+    <i class="fa fa-reply"></i>
+</a>
+<?php $this->placeholder('header-buttons')->captureEnd();?>
+
+<?php
+
+$this->form->setAttributes([
+    'method' => 'post',
+    'id' => 'form-news',
+    'action' => $this->url('admin/news/edit', [
+        'action' => 'edit',
+        'id' => $this->model->getNewsId(),
+    ]),
+]);
+
+?>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> <?=$this->translate('Edit News');?></h3>
+    </div>
+    <div class="panel-body">
+        <?php \FB::info($model);?>
+        <?=$this->form($this->form);?>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('button[name=news-image-button]').on('click', function() {
+            var uploadDialog = bootbox.dialog({
+                message: '<i class="fa fa-spinner fa-spin"></i> Loading',
+                title: "Upload Image",
+                show: false,
+                buttons: {
+                    default: {
+                        label: "Close",
+                        className: "btn-default",
+                        callback: function (e) {
+                            if (admin.upload && admin.upload.status) {
+                                $('#news-image').val(admin.upload.image.name);
+                            }
+                        }
+                    }
+                }
+            });
+
+            uploadDialog.on('show.bs.modal', function () {
+                $(this).find('.modal-body').load('<?=$this->url('admin/uploader', [
+                    'action'    => 'upload-form',
+                ]);?>');
+            });
+
+            uploadDialog.modal('show');
+        });
+
+        $('textarea.editable-textarea').summernote({
+            height: 300,
+            toolbar: [
+                ['style', ['style', 'bold', 'underline', 'clear']],
+                ['font', ['fontname', 'fontsize']],
+                ['para', ['ul', 'ol', 'paragraph']],
+                ['table', ['table']],
+                ['insert', ['link', 'picture']],
+                ['view', ['fullscreen', 'codeview', 'help']]
+            ]
+        });
+    });
+</script>

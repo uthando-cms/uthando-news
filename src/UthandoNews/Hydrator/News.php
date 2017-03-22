@@ -28,7 +28,7 @@ class News extends AbstractHydrator
 
         $dateTime = new DateTimeStrategy();
 
-        //$this->addStrategy('dateCreated', $dateTime);
+        $this->addStrategy('dateCreated', $dateTime);
         $this->addStrategy('dateModified', $dateTime);
 
         return $this;
@@ -44,8 +44,16 @@ class News extends AbstractHydrator
     {
         return [
             'newsId'        => $object->getNewsId(),
-            'articleId'     => $object->getArticleId(),
+            'userId'        => $object->getUserId(),
+            'title'         => $object->getTitle(),
+            'slug'          => $object->getSlug(),
+            'content'       => $object->getContent(),
+            'description'   => $object->getDescription(),
+            'pageHits'      => $object->getPageHits(),
             'image'         => $object->getImage(),
+            'layout'        => $object->getLayout(),
+            'lead'          => $object->getLead(),
+            'dateCreated'   => $this->extractValue('dateCreated', $object->getDateCreated()),
             'dateModified'  => $this->extractValue('dateModified', $object->getDateModified()),
         ];
     }

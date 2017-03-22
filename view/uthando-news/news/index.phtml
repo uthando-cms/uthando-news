@@ -1,17 +1,35 @@
+<?php $this->headTitle('News') ?>
+<?php $this->layout()->pageTitle = $this->translate('News');?>
 
-<?=$this->partial('uthando-admin/partial/search', [
-    'name'			=> 'news',
-    'searchInputs'	=> [
-        'News' => 'title',
-    ],
-]);?>
+<?php $this->placeholder('header-buttons')->captureStart();?>
+<a href="<?=$this->url('admin/news/settings');?>" data-toggle="tooltip" title="<?=$this->translate('Settings');?>" class="btn btn-primary">
+    <i class="fa fa-cog"></i>
+</a>
+<a href="<?=$this->url('admin/news/edit', [
+    'action' => 'add'
+]);?>" type="submit" data-toggle="tooltip" title="<?=$this->translate('Add News');?>" class="btn btn-primary">
+    <i class="fa fa-plus"></i>
+</a>
+<?php $this->placeholder('header-buttons')->captureEnd();?>
 
-<div id="table-news">
-    <?=$this->partial('uthando-news/news/list', [
-        'models' => $this->models
-    ]); ?>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-list"></i> <?=$this->translate('News List');?></h3>
+    </div>
+    <div class="panel-body">
+        <?=$this->partial('uthando-admin/partial/search', [
+            'name'			=> 'news',
+            'searchInputs'	=> [
+                $this->translate('News') => 'title',
+            ],
+        ]);?>
+    </div>
+    <div id="table-news" class="admin-table">
+        <?=$this->partial('uthando-news/news/list', [
+            'models' => $this->models
+        ]); ?>
+    </div>
 </div>
-
 
 <script>
     $(document).ready(function(){

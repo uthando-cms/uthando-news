@@ -12,9 +12,11 @@
 namespace UthandoNews\Model;
 
 use UthandoArticle\Model\Article;
+use UthandoCommon\Model\DateCreatedTrait;
 use UthandoCommon\Model\DateModifiedTrait;
 use UthandoCommon\Model\Model;
 use UthandoCommon\Model\ModelInterface;
+use UthandoUser\Model\UserTrait;
 
 /**
  * Class News
@@ -24,6 +26,8 @@ use UthandoCommon\Model\ModelInterface;
 class News implements ModelInterface
 {
     use Model,
+        UserTrait,
+        DateCreatedTrait,
         DateModifiedTrait;
 
     /**
@@ -32,9 +36,29 @@ class News implements ModelInterface
     protected $newsId;
 
     /**
+     * @var string
+     */
+    protected $title;
+
+    /**
+     * @var string
+     */
+    protected $slug;
+
+    /**
+     * @var string
+     */
+    protected $content;
+
+    /**
+     * @var string
+     */
+    protected $description;
+
+    /**
      * @var int
      */
-    protected $articleId = 0;
+    protected $pageHits = 0;
 
     /**
      * @var string
@@ -42,9 +66,14 @@ class News implements ModelInterface
     protected $image;
 
     /**
-     * @var Article
+     * @var string
      */
-    protected $article;
+    protected $layout;
+
+    /**
+     * @var string
+     */
+    protected $lead;
 
     /**
      * @return int
@@ -55,7 +84,7 @@ class News implements ModelInterface
     }
 
     /**
-     * @param int $newsId
+     * @param $newsId
      * @return $this
      */
     public function setNewsId($newsId)
@@ -65,21 +94,92 @@ class News implements ModelInterface
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getArticleId()
+    public function getTitle()
     {
-        return $this->articleId;
+        return $this->title;
     }
 
     /**
-     * @param int $articleId
+     * @param $title
      * @return $this
      */
-    public function setArticleId($articleId)
+    public function setTitle($title)
     {
-        $this->articleId = $articleId;
+        $this->title = $title;
+        return $this;
+    }
 
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param $slug
+     * @return $this
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
+    }
+
+    /**
+     * @param $content
+     * @return $this
+     */
+    public function setContent($content)
+    {
+        $this->content = $content;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param $description
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPageHits()
+    {
+        return $this->pageHits;
+    }
+
+    /**
+     * @param $pageHits
+     * @return $this
+     */
+    public function setPageHits($pageHits)
+    {
+        $this->pageHits = $pageHits;
         return $this;
     }
 
@@ -93,30 +193,41 @@ class News implements ModelInterface
 
     /**
      * @param string $image
-     * @return $this
      */
     public function setImage($image)
     {
         $this->image = $image;
-        return $this;
     }
 
     /**
-     * @return Article
+     * @return string
      */
-    public function getArticle()
+    public function getLayout()
     {
-        return $this->article;
+        return $this->layout;
     }
 
     /**
-     * @param Article $article
-     * @return $this
+     * @param string $layout
      */
-    public function setArticle($article)
+    public function setLayout($layout)
     {
-        $this->article = $article;
+        $this->layout = $layout;
+    }
 
-        return $this;
+    /**
+     * @return string
+     */
+    public function getLead()
+    {
+        return $this->lead;
+    }
+
+    /**
+     * @param string $lead
+     */
+    public function setLead($lead)
+    {
+        $this->lead = $lead;
     }
 } 

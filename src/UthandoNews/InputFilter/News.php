@@ -33,12 +33,48 @@ class News extends InputFilter
         ]);
 
         $this->add([
-            'name' => 'articleId',
-            'required' => false,
-            'filters' => [
-                ['name' => 'StringTrim'],
+            'name' => 'userId',
+            'required'      => true,
+            'filters'       => [
                 ['name' => 'StripTags'],
-                ['name' => 'Digits']
+                ['name' => 'StringTrim'],
+            ],
+            'validators'    => [
+
+            ],
+        ]);
+
+        $this->add([
+            'name' => 'title',
+            'required'      => true,
+            'filters'       => [
+                ['name' => 'StripTags'],
+                ['name' => 'StringTrim'],
+                ['name' => 'UthandoCommon\Filter\Ucwords'],
+            ],
+            'validators'    => [
+                ['name' => 'StringLength', 'options' => [
+                    'encoding' => 'UTF-8',
+                    'min' => 2,
+                    'max' => 255
+                ]],
+            ],
+        ]);
+
+        $this->add([
+            'name' => 'slug',
+            'required'      => true,
+            'filters'       => [
+                ['name' => 'StripTags'],
+                ['name' => 'StringTrim'],
+                ['name' => 'UthandoCommon\Filter\Slug'],
+            ],
+            'validators'    => [
+                ['name' => 'StringLength', 'options' => [
+                    'encoding' => 'UTF-8',
+                    'min' => 2,
+                    'max' => 255
+                ]],
             ],
         ]);
 
@@ -48,6 +84,57 @@ class News extends InputFilter
             'filters' => [
                 ['name' => 'StringTrim'],
                 ['name' => 'StripTags'],
+            ],
+            'validators' => [
+                ['name'    => 'StringLength','options' => [
+                    'encoding' => 'UTF-8',
+                    'max'      => 255,
+                ]],
+            ],
+        ]);
+
+        $this->add([
+            'name' => 'layout',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+            ],
+            'validators' => [
+                ['name'    => 'StringLength','options' => [
+                    'encoding' => 'UTF-8',
+                    'max'      => 255,
+                ]],
+            ],
+        ]);
+
+        $this->add([
+            'name' => 'lead',
+            'required' => false,
+            'filters' => [
+                ['name' => 'StringTrim'],
+                ['name' => 'StripTags'],
+            ],
+            'validators' => [
+                ['name'    => 'StringLength','options' => [
+                    'encoding' => 'UTF-8',
+                ]],
+            ],
+        ]);
+
+        $this->add([
+            'name' => 'description',
+            'required'      => true,
+            'filters'       => [
+                ['name' => 'StripTags'],
+                ['name' => 'StringTrim'],
+            ],
+            'validators'    => [
+                ['name' => 'StringLength', 'options' => [
+                    'encoding' => 'UTF-8',
+                    'min' => 30,
+                    'max' => 255
+                ]],
             ],
         ]);
     }
