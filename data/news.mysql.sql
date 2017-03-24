@@ -31,7 +31,6 @@ CREATE TABLE `news` (
   `image` varchar(255) DEFAULT NULL,
   `lead` tinytext,
   `pageHits` int(10) UNSIGNED NOT NULL,
-  `resource` varchar(50) NOT NULL,
   `dateCreated` datetime NOT NULL,
   `dateModified` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
