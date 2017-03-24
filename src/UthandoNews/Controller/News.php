@@ -103,15 +103,15 @@ class News extends AbstractCrudController
         foreach ($newsItems as $item) {
             $entry = $feed->createEntry();
             $entry->addAuthor([
-                'name' => $item->getArticle()->getUser()->getFullName(),
+                'name' => $item->getUser()->getFullName(),
             ]);
-            $entry->setTitle($item->getArticle()->getTitle());
+            $entry->setTitle($item->getTitle());
             $entry->setLink($base . $this->url()->fromRoute('news', [
-                'news-item' => $item->getArticle()->getSlug(),
+                'news-item' => $item->getSlug(),
             ]));
-            $entry->setDescription($item->getArticle()->getDescription());
+            $entry->setDescription($item->getDescription());
             $entry->setDateModified($item->getDateModified()->getTimestamp());
-            $entry->setDateCreated($item->getArticle()->getDateCreated()->getTimestamp());
+            $entry->setDateCreated($item->getDateCreated()->getTimestamp());
 
             $feed->addEntry($entry);
         }
