@@ -40,7 +40,7 @@ class News extends AbstractRelationalMapperService
     public function attachEvents()
     {
         $this->getEventManager()->attach([
-            'form.init'
+            'pre.form'
         ], [$this, 'setSlug']);
 
         $this->getEventManager()->attach([
@@ -62,7 +62,7 @@ class News extends AbstractRelationalMapperService
         if ($data instanceof NewsModel) {
             $data->setSlug($data->getTitle());
         } elseif (is_array($data)) {
-            $data['slug'] = $data['slug'];
+            $data['slug'] = $data['title'];
         }
 
         $e->setParam('data', $data);
