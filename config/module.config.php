@@ -3,7 +3,9 @@
 return [
     'controllers' => [
         'invokables' => [
+            'UthandoNews\Controller\Feed'       => 'UthandoNews\Controller\Feed',
             'UthandoNews\Controller\News'       => 'UthandoNews\Controller\News',
+            'UthandoNews\Controller\NewsAdmin'  => 'UthandoNews\Controller\NewsAdmin',
             'UthandoNews\Controller\Settings'   => 'UthandoNews\Controller\Settings',
         ],
     ],
@@ -46,6 +48,11 @@ return [
             'UthandoNews' => 'UthandoNews\Service\News',
         ],
     ],
+    'view_helpers' => [
+        'invokables' => [
+            'NewsHelper' => \UthandoNews\View\NewsHelper::class
+        ],
+    ],
     'view_manager' => [
         'strategies' => [
             'ViewFeedStrategy',
@@ -66,12 +73,42 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
+                    'tag' => [
+                        'type'    => 'Segment',
+                        'options' => [
+                            'route'         => '/tag/[:tag][/[:page]]',
+                            'constraints'   => [
+                                'tag'   => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '\d+',
+                            ],
+                            'defaults'      => [
+                                'action'        => 'view',
+                                'tag'           => '',
+                                'page'          => 1,
+                            ],
+                        ],
+                    ],
+                    'archives' => [
+                        'type'    => 'Segment',
+                        'options' => [
+                            'route'         => '/[:year]/[:month][/[:page]]',
+                            'constraints'   => [
+                                'year' => '\d+',
+                                'month' => '\d+',
+                                'page' => '\d+',
+                            ],
+                            'defaults'      => [
+                                'action'     => 'view',
+                                'page'       => 1,
+                            ],
+                        ],
+                    ],
                     'page' => [
                         'type'    => 'Segment',
                         'options' => [
-                            'route'         => '/page/[:page]',
+                            'route'         => '/[:page]',
                             'constraints'   => [
-                                'page' => '\d+'
+                                'page' => '\d+',
                             ],
                             'defaults'      => [
                                 'action'        => 'view',
@@ -101,7 +138,7 @@ return [
                     'route' => '/news/feed',
                     'defaults' => [
                         '__NAMESPACE__' => 'UthandoNews\Controller',
-                        'controller'    => 'News',
+                        'controller'    => 'Feed',
                         'action'        => 'feed',
                     ],
                 ],

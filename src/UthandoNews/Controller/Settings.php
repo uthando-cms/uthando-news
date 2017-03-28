@@ -11,6 +11,7 @@
 namespace UthandoNews\Controller;
 
 use UthandoCommon\Controller\SettingsTrait;
+use UthandoNews\Form\NewsSettings;
 use Zend\Mvc\Controller\AbstractActionController;
 
 /**
@@ -27,7 +28,7 @@ class Settings extends AbstractActionController
      */
     public function __construct()
     {
-        $this->setFormName('UthandoNewsSettings')
+        $this->setFormName(NewsSettings::class)
             ->setConfigKey('uthando_news');
     }
 }

@@ -1,0 +1,47 @@
+<?php $this->headTitle($this->escapeHtml($this->model->getTitle()));?>
+<?php $newsHelper = $this->newsHelper();?>
+
+<div class="col-sm-8">
+    <nav>
+        <ol class="breadcrumb">
+            <li><a href="<?=$this->url('home')?>">Home</a></li>
+            <li><a href="<?=$this->url('news')?>">News</a></li>
+            <li class="active"><?=$this->escapeHtml($this->model->getTitle());?></li>
+        </ol>
+    </nav>
+    <article>
+        <h3><?=$this->escapeHtml($this->model->getTitle());?></h3>
+        <?=$this->model->getContent();?>
+    </article>
+    <hr>
+    <span><b>Author:</b> <?=$this->escapeHtml($this->model->getUser()->getFullName());?></span>
+    <span><b>Date:</b> <?=$this->formatDate($this->model->getDateCreated());?></span>
+</div>
+
+<div class="col-sm-4">
+    <div class="panel panel-default">
+        <div class="panel-heading">Recent News</div>
+        <div class="panel-body">
+            <?php foreach($newsHelper->getRecent() as $newsItem):?>
+                <h4><a href="<?=$this->url('news', [
+                        'news-item' => $this->escapeHtml($newsItem->getSlug()),
+                    ]);?>" class=""><?=$this->escapeHtml($newsItem->getTitle());?></h4>
+                <p><?=$this->formatDate($newsItem->getDateCreated());?></a</p>
+                <hr>
+            <?php endforeach;?>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">Popular News</div>
+        <div class="panel-body">
+            <?php foreach($newsHelper->getPopular() as $newsItem):?>
+                <h4><a href="<?=$this->url('news', [
+                        'news-item' => $this->escapeHtml($newsItem->getSlug()),
+                    ]);?>"><?=$this->escapeHtml($newsItem->getTitle());?></a></h4>
+                <p><?=$this->formatDate($newsItem->getDateCreated());?></p>
+                <hr>
+            <?php endforeach;?>
+        </div>
+    </div>
+</div>

@@ -14,7 +14,7 @@ return [
                             ],
                             'defaults' => [
                                 '__NAMESPACE__' => 'UthandoNews\Controller',
-                                'controller'    => 'News',
+                                'controller'    => 'NewsAdmin',
                                 'action'        => 'index',
                                 'force-ssl'     => 'ssl'
                             ],

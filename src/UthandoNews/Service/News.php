@@ -12,6 +12,7 @@
 namespace UthandoNews\Service;
 
 use UthandoCommon\Service\AbstractRelationalMapperService;
+use UthandoNews\Mapper\News as NewsMapper;
 use UthandoNews\Model\News as NewsModel;
 use Zend\EventManager\Event;
 
@@ -19,6 +20,7 @@ use Zend\EventManager\Event;
  * Class News
  *
  * @package UthandoNews\Service
+ * @method NewsMapper getMapper($mapperClass = null, array $options = [])
  */
 class News extends AbstractRelationalMapperService
 {
@@ -108,7 +110,7 @@ class News extends AbstractRelationalMapperService
     public function getBySlug($slug)
     {
         $slug = (string) $slug;
-        /* @var $mapper \UthandoNews\Mapper\News */
+        /* @var $mapper NewsMapper */
         $mapper = $this->getMapper();
         $model = $mapper->getBySlug($slug);
 
@@ -128,5 +130,30 @@ class News extends AbstractRelationalMapperService
         $pageHits++;
         $newsModel->setPageHits($pageHits);
         $this->save($newsModel);
+    }
+
+    /**
+     * @param int $limit
+     * @return \Zend\Db\ResultSet\HydratingResultSet|\Zend\Db\ResultSet\ResultSet|\Zend\Paginator\Paginator
+     */
+    public function getPopularNews(int $limit)
+    {
+        $mapper = $this->getMapper();
+        $models = $mapper->getNewsByHits($limit);
+
+        return $models;
+    }
+
+    /**
+     * @param int $limit
+     * @return \Zend\Db\ResultSet\HydratingResultSet|\Zend\Db\ResultSet\ResultSet|\Zend\Paginator\Paginator
+     */
+    public function getRecentNews(int $limit)
+    {
+        $mapper = $this->getMapper();
+        $models = $mapper->getNewsByDate($limit);
+
+        return $models;
+
     }
 } 

@@ -11,9 +11,8 @@
 
 namespace UthandoNews\Controller;
 
-use UthandoCommon\Controller\AbstractCrudController;
-use Zend\Feed\Writer\Feed;
-use Zend\View\Model\FeedModel;
+use UthandoCommon\Service\ServiceTrait;
+use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 /**
@@ -22,26 +21,36 @@ use Zend\View\Model\ViewModel;
  * @package UthandoNews\Controller
  * @method \UthandoNews\Service\News getService()
  */
-class News extends AbstractCrudController
+class News extends AbstractActionController
 {
-    protected $controllerSearchOverrides = ['sort' => 'newsId'];
-    protected $serviceName = 'UthandoNews';
-    protected $route = 'admin/news';
-    protected $routes = [];
+    use ServiceTrait;
+
+    public function __construct()
+    {
+        $this->setServiceName('UthandoNews');
+    }
 
     public function viewAction()
     {
         /* @var \UthandoNews\Options\NewsOptions $options */
         $options = $this->getService('UthandoNewsOptions');
 
-        $this->searchDefaultParams = [
-            'sort' => $options->getSortOrder(),
+        $params = [
+            'sort'  => $options->getSortOrder(),
             'count' => $options->getItemsPerPage(),
-            'page' => $this->params()->fromRoute('page'),
+            'page'  => $this->params()->fromRoute('page'),
+            //'tag'   => $this->params()->fromRoute('tag'),
         ];
 
+        $service = $this->getService();
+
+        $service->usePaginator([
+            'limit' => $params['count'],
+            'page' => $params['page'],
+        ]);
+
         $viewModel = new ViewModel([
-            'models' => $this->getPaginatorResults(false),
+            'models' => $service->search($params),
         ]);
 
         if ($this->getRequest()->isXmlHttpRequest()) {
@@ -74,53 +83,5 @@ class News extends AbstractCrudController
 
         return $viewModel->setVariables(['model' => $model]);
 
-    }
-
-    public function feedAction()
-    {
-        /* @var \UthandoNews\Options\NewsOptions $options */
-        $options = $this->getService('UthandoNewsOptions');
-        /* @var \UthandoNews\Options\FeedOptions $feedOptions */
-        $feedOptions = $this->getService('UthandoNewsFeedOptions');
-
-        $newService = $this->getService();
-        $newsItems = $newService->search([
-            'sort' => $options->getSortOrder(),
-        ]);
-
-        $uri = $this->getRequest()->getUri();
-        $base = sprintf('%s://%s', $uri->getScheme(), $uri->getHost());
-
-        $feed = new Feed();
-        $feed->setTitle($feedOptions->getTitle());
-        $feed->setFeedLink($base . $this->url()->fromRoute('home'), 'atom');
-
-        $feed->setDescription($feedOptions->getDescription());
-        $feed->setLink($base . $this->url()->fromRoute('home'));
-        $feed->setDateModified(time());
-
-        /* @var \UthandoNews\Model\News $item */
-        foreach ($newsItems as $item) {
-            $entry = $feed->createEntry();
-            $entry->addAuthor([
-                'name' => $item->getUser()->getFullName(),
-            ]);
-            $entry->setTitle($item->getTitle());
-            $entry->setLink($base . $this->url()->fromRoute('news', [
-                'news-item' => $item->getSlug(),
-            ]));
-            $entry->setDescription($item->getDescription());
-            $entry->setDateModified($item->getDateModified()->getTimestamp());
-            $entry->setDateCreated($item->getDateCreated()->getTimestamp());
-
-            $feed->addEntry($entry);
-        }
-
-        $feed->export('rss');
-
-        $feedModel = new FeedModel();
-        $feedModel->setFeed($feed);
-
-        return $feedModel;
     }
 } 
