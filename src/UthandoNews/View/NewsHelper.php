@@ -11,6 +11,7 @@
 namespace UthandoNews\View;
 
 use UthandoCommon\View\AbstractViewHelper;
+use UthandoNews\Model\News as NewsModel;
 use UthandoNews\Service\News as NewsService;
 
 /**
@@ -49,6 +50,30 @@ class NewsHelper extends AbstractViewHelper
     {
         return $this->getService()
             ->getRecentNews(5);
+    }
+
+    /**
+     * @param $id
+     * @return NewsModel
+     */
+    public function getPrevious($id): NewsModel
+    {
+        $prev = $this->getService()->getMapper()
+            ->getPrevious($id);
+
+        return $prev;
+    }
+
+    /**
+     * @param $id
+     * @return NewsModel
+     */
+    public function getNext($id): NewsModel
+    {
+        $next = $this->getService()->getMapper()
+            ->getNext($id);
+
+        return $next;
     }
 
     /**
