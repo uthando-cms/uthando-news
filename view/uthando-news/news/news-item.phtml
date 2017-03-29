@@ -16,6 +16,24 @@
     <hr>
     <span><b>Author:</b> <?=$this->escapeHtml($this->model->getUser()->getFullName());?></span>
     <span><b>Date:</b> <?=$this->formatDate($this->model->getDateCreated());?></span>
+    <hr>
+    <?php
+    $previous = $newsHelper->getPrevious($this->model->getNewsId());
+    $next = $newsHelper->getNext($this->model->getNewsId());
+    ?>
+
+    <ul class="pager">
+        <li class="previous<?php if (!$previous) echo " disabled"; ?>">
+            <a class="noborder" href="<?=$this->url('news', [
+                'news-item' => (!$previous) ? '' : $previous->getSlug()
+            ]);?>">&larr; Previous</a>
+        </li>
+        <li class="next<?php if (!$next) echo " disabled"; ?>">
+            <a class="noborder" href="<?=$this->url('news', [
+                'news-item' => (!$next) ? '' : $next->getSlug()
+            ]);?>">Next &rarr;</a>
+        </li>
+    </ul>
 </div>
 
 <div class="col-sm-4">

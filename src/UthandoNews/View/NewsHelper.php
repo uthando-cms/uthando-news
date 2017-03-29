@@ -54,9 +54,9 @@ class NewsHelper extends AbstractViewHelper
 
     /**
      * @param $id
-     * @return NewsModel
+     * @return NewsModel|null
      */
-    public function getPrevious($id): NewsModel
+    public function getPrevious($id)
     {
         $prev = $this->getService()->getMapper()
             ->getPrevious($id);
@@ -66,10 +66,11 @@ class NewsHelper extends AbstractViewHelper
 
     /**
      * @param $id
-     * @return NewsModel
+     * @return NewsModel|null
      */
-    public function getNext($id): NewsModel
+    public function getNext($id)
     {
+
         $next = $this->getService()->getMapper()
             ->getNext($id);
 
