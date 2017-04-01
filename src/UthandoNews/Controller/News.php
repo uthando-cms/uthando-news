@@ -34,11 +34,13 @@ class News extends AbstractActionController
     {
         /* @var \UthandoNews\Options\NewsOptions $options */
         $options = $this->getService('UthandoNewsOptions');
+        $search = $this->params()->fromPost('search', null);
 
         $params = [
             'sort'  => $options->getSortOrder(),
             'count' => $options->getItemsPerPage(),
             'page'  => $this->params()->fromRoute('page'),
+            'title-description' => $search,
             //'tag'   => $this->params()->fromRoute('tag'),
         ];
 
@@ -50,7 +52,8 @@ class News extends AbstractActionController
         ]);
 
         $viewModel = new ViewModel([
-            'models' => $service->search($params),
+            'models'    => $service->search($params),
+            'view'      => $this->getEvent()->getRouteMatch()->getMatchedRouteName(),
         ]);
 
         if ($this->getRequest()->isXmlHttpRequest()) {

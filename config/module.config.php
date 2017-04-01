@@ -73,6 +73,21 @@ return [
                 ],
                 'may_terminate' => true,
                 'child_routes' => [
+                    'search' => [
+                        'type'    => 'Segment',
+                        'options' => [
+                            'route'         => '/search/[:search][/[:page]]',
+                            'constraints'   => [
+                                'search'   => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'page' => '\d+',
+                            ],
+                            'defaults'      => [
+                                'action'        => 'view',
+                                'search'        => '',
+                                'page'          => 1,
+                            ],
+                        ],
+                    ],
                     'tag' => [
                         'type'    => 'Segment',
                         'options' => [
