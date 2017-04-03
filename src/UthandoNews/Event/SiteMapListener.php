@@ -53,10 +53,10 @@ class SiteMapListener implements ListenerAggregateInterface
         /* @var \UthandoNews\Model\News $newsItem */
         foreach ($newsItems as $newsItem) {
             $pages[$newsItem->getArticle()->getSlug()] = [
-                'label'     => $newsItem->getArticle()->getTitle(),
+                'label'     => $newsItem->getTitle(),
                 'route'     => 'news',
                 'params'    => [
-                    'news-item' => $newsItem->getArticle()->getSlug(),
+                    'news-item' => $newsItem->getSlug(),
                 ],
             ];
         }
