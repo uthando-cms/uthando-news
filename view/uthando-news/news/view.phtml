@@ -1,66 +1,23 @@
 <?php $this->headTitle('News');?>
 <?php $newsHelper = $this->newsHelper();?>
 
-<div class="col-sm-8">
-    <?php if ($this->models->count() > 0):?>
-        <?php foreach($this->models as $newsItem):?>
-            <h3><?=$this->escapeHtml($newsItem->getTitle());?></h3>
-            <p><?=$this->escapeHtml($newsItem->getLead());?></p>
-            <a href="<?=$this->url('news', [
-                'news-item' => $this->escapeHtml($newsItem->getSlug()),
-            ]);?>" class="btn btn-primary">Read More</a><br>
-            <span><b>Author:</b> <?=$this->escapeHtml($newsItem->getUser()->getFullName());?></span>
-            <span><b>Date:</b> <?=$this->formatDate($newsItem->getDateCreated());?></span>
-            <hr>
-        <?php endforeach;?>
-    <?php elseif ($this->view == 'news-list/search'):?>
-        <h1>No news found in search.</h1>
-    <?php elseif ($this->view == 'news-list/tags'):?>
-        <h1>No news found under this tag.</h1>
-    <?php else:?>
-        <h1>No news has been posted yet. Please stay tuned.</h1>
-    <?php endif;?>
-</div>
+<?php if ($this->models->count() > 0):?>
+    <?php foreach($this->models as $newsItem):?>
+        <h3><?=$this->escapeHtml($newsItem->getTitle());?></h3>
+        <p><?=$this->escapeHtml($newsItem->getLead());?></p>
+        <a href="<?=$this->url('news', [
+            'news-item' => $this->escapeHtml($newsItem->getSlug()),
+        ]);?>" class="btn btn-primary">Read More</a><br>
+        <span><b>Author:</b> <?=$this->escapeHtml($newsItem->getUser()->getFullName());?></span>
+        <span><b>Date:</b> <?=$this->formatDate($newsItem->getDateCreated());?></span>
+        <hr>
+    <?php endforeach;?>
+<?php elseif ($this->view == 'news-list/search'):?>
+    <h1>No news found in search.</h1>
+<?php elseif ($this->view == 'news-list/tags'):?>
+    <h1>No news found under this tag.</h1>
+<?php else:?>
+    <h1>No news has been posted yet. Please stay tuned.</h1>
+<?php endif;?>
 
-<div class="col-sm-4">
-
-    <form action="<?=$this->url('news-list/search');?>" method="post">
-        <div class="input-group">
-            <input type="search" placeholder="Start Searching..." id="search" name="search" class="form-control">
-            <div class="input-group-btn">
-                <button type="submit" class="btn btn-default">
-                    <i class="fa fa-search"></i>
-                </button>
-            </div>
-        </div>
-    </form>
-
-    <hr>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">Recent News</div>
-        <div class="panel-body">
-            <?php foreach($newsHelper->getRecent() as $newsItem):?>
-                <h4><a href="<?=$this->url('news', [
-                        'news-item' => $this->escapeHtml($newsItem->getSlug()),
-                    ]);?>" class=""><?=$this->escapeHtml($newsItem->getTitle());?></h4>
-                <p><?=$this->formatDate($newsItem->getDateCreated());?></a</p>
-                <hr>
-            <?php endforeach;?>
-        </div>
-    </div>
-
-    <div class="panel panel-default">
-        <div class="panel-heading">Popular News</div>
-        <div class="panel-body">
-            <?php foreach($newsHelper->getPopular() as $newsItem):?>
-                <h4><a href="<?=$this->url('news', [
-                        'news-item' => $this->escapeHtml($newsItem->getSlug()),
-                    ]);?>"><?=$this->escapeHtml($newsItem->getTitle());?></a></h4>
-                <p><?=$this->formatDate($newsItem->getDateCreated());?></p>
-                <hr>
-            <?php endforeach;?>
-        </div>
-    </div>
-</div>
 
