@@ -16,7 +16,6 @@ return [
                                 '__NAMESPACE__' => 'UthandoNews\Controller',
                                 'controller'    => 'NewsAdmin',
                                 'action'        => 'index',
-                                'force-ssl'     => 'ssl'
                             ],
                         ],
                         'may_terminate' => true,
@@ -31,7 +30,6 @@ return [
                                     ],
                                     'defaults'      => [
                                         'action'        => 'edit',
-                                        'force-ssl'     => 'ssl'
                                     ],
                                 ],
                                 'may_terminate' => true,
@@ -46,7 +44,6 @@ return [
                                     'defaults'      => [
                                         'action'        => 'list',
                                         'page'          => 1,
-                                        'force-ssl'     => 'ssl'
                                     ],
                                 ],
                                 'may_terminate' => true,
@@ -58,7 +55,6 @@ return [
                                     'defaults' => [
                                         'controller' => 'Settings',
                                         'action' => 'index',
-                                        'force-ssl' => 'ssl'
                                     ]
                                 ],
                                 'may_terminate' => true,
