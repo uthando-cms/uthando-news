@@ -13,14 +13,14 @@ namespace UthandoNews\Hydrator;
 
 use UthandoCommon\Hydrator\AbstractHydrator;
 use UthandoCommon\Hydrator\Strategy\DateTime as DateTimeStrategy;
-use UthandoNews\Model\News as NewsModel;
+use UthandoNews\Model\NewsModel as NewsModel;
 
 /**
- * Class News
+ * Class NewsForm
  *
  * @package UthandoNews\Hydrator
  */
-class News extends AbstractHydrator
+class NewsHydrator extends AbstractHydrator
 {
     public function __construct()
     {

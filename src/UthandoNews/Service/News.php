@@ -12,19 +12,27 @@
 namespace UthandoNews\Service;
 
 use UthandoCommon\Service\AbstractRelationalMapperService;
-use UthandoNews\Mapper\News as NewsMapper;
-use UthandoNews\Model\News as NewsModel;
+use UthandoNews\Form\NewsForm;
+use UthandoNews\Hydrator\NewsHydrator;
+use UthandoNews\InputFilter\NewsInputFilter;
+use UthandoNews\Mapper\NewsMapper as NewsMapper;
+use UthandoNews\Model\NewsModel as NewsModel;
+use UthandoNews\Options\NewsOptions;
 use Zend\EventManager\Event;
 
 /**
- * Class News
+ * Class NewsForm
  *
  * @package UthandoNews\Service
  * @method NewsMapper getMapper($mapperClass = null, array $options = [])
  */
 class News extends AbstractRelationalMapperService
 {
-    protected $serviceAlias = 'UthandoNews';
+    protected $form         = NewsForm::class;
+    protected $hydrator     = NewsHydrator::class;
+    protected $inputFilter  = NewsInputFilter::class;
+    protected $mapper       = NewsMapper::class;
+    protected $model        = NewsModel::class;
 
     /**
      * @var array
@@ -48,6 +56,43 @@ class News extends AbstractRelationalMapperService
         $this->getEventManager()->attach([
             'pre.add', 'pre.edit'
         ], [$this, 'setValidation']);
+
+        $this->getEventManager()->attach([
+            'post.add',
+        ], [$this, 'autoPost']);
+    }
+
+    public function autoPost(Event $e)
+    {
+        $saved = $e->getParam('saved');
+
+        if ($saved) {
+            /* @var $model NewsModel */
+            $model = $this->getMapper()->getById($saved);
+
+            /* @var $options NewsOptions */
+            $options = $this->getService(NewsOptions::class);
+
+            $viewManager = $this->getServiceLocator()
+                ->get('ViewHelperManager');
+
+            $url = $viewManager->get('Url');
+            $scheme = $viewManager->get('ServerUrl');
+
+            $url = $url('news', [
+                'news-item'    => $model->getSlug(),
+            ]);
+
+            $string = sprintf('%s %s', $model->getTitle(), $scheme($url));
+
+            $argv   = compact('string');
+            $argv   = $this->prepareEventArguments($argv);
+
+            foreach ($options->getAutoPost() as $event) {
+                $this->getEventManager()->trigger($event, $this, $argv);
+            }
+
+        }
     }
 
     /**
@@ -123,6 +168,7 @@ class News extends AbstractRelationalMapperService
 
     /**
      * @param NewsModel $newsModel
+     * @throws \UthandoCommon\Service\ServiceException
      */
     public function addPageHit(NewsModel $newsModel)
     {

@@ -12,6 +12,7 @@ namespace UthandoNews\Form;
 
 use TwbBundle\Form\View\Helper\TwbBundleForm;
 use UthandoNews\Options\FeedOptions;
+use Zend\Form\Element\Text;
 use Zend\Form\Fieldset;
 use Zend\Hydrator\ClassMethods;
 use Zend\InputFilter\InputFilterProviderInterface;
@@ -30,7 +31,7 @@ class NewsFeedFieldSet extends Fieldset implements InputFilterProviderInterface
     {
         $this->add([
             'name' => 'title',
-            'type' => 'text',
+            'type' => Text::class,
             'options' => [
                 'label' => 'Title',
                 'column-size' => 'md-8',
@@ -43,7 +44,7 @@ class NewsFeedFieldSet extends Fieldset implements InputFilterProviderInterface
 
         $this->add([
             'name' => 'description',
-            'type' => 'text',
+            'type' => Text::class,
             'options' => [
                 'label' => 'Description',
                 'column-size' => 'md-8',

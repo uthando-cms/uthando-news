@@ -12,28 +12,30 @@
 namespace UthandoNews\Controller;
 
 use UthandoCommon\Service\ServiceTrait;
+use UthandoNews\Options\NewsOptions;
+use UthandoNews\Service\News;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
 /**
- * Class News
+ * Class NewsForm
  *
  * @package UthandoNews\Controller
  * @method \UthandoNews\Service\News getService()
  */
-class News extends AbstractActionController
+class NewsController extends AbstractActionController
 {
     use ServiceTrait;
 
     public function __construct()
     {
-        $this->setServiceName('UthandoNews');
+        $this->setServiceName(News::class);
     }
 
     public function viewAction()
     {
         /* @var \UthandoNews\Options\NewsOptions $options */
-        $options = $this->getService('UthandoNewsOptions');
+        $options = $this->getService(NewsOptions::class);
         $search = $this->params()->fromPost('search', null);
 
         $params = [

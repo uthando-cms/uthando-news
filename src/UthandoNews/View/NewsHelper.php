@@ -11,7 +11,7 @@
 namespace UthandoNews\View;
 
 use UthandoCommon\View\AbstractViewHelper;
-use UthandoNews\Model\News as NewsModel;
+use UthandoNews\Model\NewsModel as NewsModel;
 use UthandoNews\Service\News as NewsService;
 
 /**
@@ -87,7 +87,7 @@ class NewsHelper extends AbstractViewHelper
             $service = $this->getServiceLocator()
                 ->getServiceLocator()
                 ->get('UthandoServiceManager')
-                ->get('UthandoNews');
+                ->get(NewsService::class);
             $this->setService($service);
         }
 

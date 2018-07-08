@@ -12,6 +12,7 @@ namespace UthandoNews\Form;
 
 use TwbBundle\Form\View\Helper\TwbBundleForm;
 use UthandoNews\Options\NewsOptions;
+use UthandoTwitter\Form\SocialMediaFieldSet;
 use Zend\Form\Fieldset;
 use Zend\Hydrator\ClassMethods;
 use Zend\InputFilter\InputFilterProviderInterface;
@@ -45,12 +46,24 @@ class NewsOptionsFieldSet extends Fieldset implements InputFilterProviderInterfa
             'name' => 'items_per_page',
             'type' => 'number',
             'options' => [
-                'label' => 'News Items Per Page',
+                'label' => 'NewsForm Items Per Page',
                 'column-size' => 'md-8',
                 'twb-layout' => TwbBundleForm::LAYOUT_HORIZONTAL,
                 'label_attributes' => [
                     'class' => 'col-md-4',
                 ],
+            ],
+        ]);
+
+        $this->add([
+            'type' => SocialMediaFieldSet::class,
+            'name' => 'auto_post',
+            'options' => [
+                'label' => 'Auto Post To:',
+                'twb-layout' => TwbBundleForm::LAYOUT_HORIZONTAL,
+            ],
+            'attributes' => [
+                'class' => 'col-md-12',
             ],
         ]);
     }

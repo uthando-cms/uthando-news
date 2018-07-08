@@ -3,49 +3,49 @@
 return [
     'controllers' => [
         'invokables' => [
-            'UthandoNews\Controller\Feed'       => 'UthandoNews\Controller\Feed',
-            'UthandoNews\Controller\News'       => 'UthandoNews\Controller\News',
-            'UthandoNews\Controller\NewsAdmin'  => 'UthandoNews\Controller\NewsAdmin',
-            'UthandoNews\Controller\Settings'   => 'UthandoNews\Controller\Settings',
+            \UthandoNews\Controller\FeedController::class       => \UthandoNews\Controller\FeedController::class,
+            \UthandoNews\Controller\NewsController::class       => \UthandoNews\Controller\NewsController::class,
+            \UthandoNews\Controller\NewsAdminController::class  => \UthandoNews\Controller\NewsAdminController::class,
+            \UthandoNews\Controller\SettingsController::class   => \UthandoNews\Controller\SettingsController::class,
         ],
     ],
     'form_elements' => [
         'invokables' => [
-            'UthandoNews'                   => 'UthandoNews\Form\News',
-            'UthandoNewsFeedFieldSet'       => 'UthandoNews\Form\NewsFeedFieldSet',
-            'UthandoNewsOptionsFieldSet'    => 'UthandoNews\Form\NewsOptionsFieldSet',
-            'UthandoNewsSettings'           => 'UthandoNews\Form\NewsSettings',
+            \UthandoNews\Form\NewsForm::class               => \UthandoNews\Form\NewsForm::class,
+            \UthandoNews\Form\NewsFeedFieldSet::class      => \UthandoNews\Form\NewsFeedFieldSet::class,
+            \UthandoNews\Form\NewsOptionsFieldSet::class   => \UthandoNews\Form\NewsOptionsFieldSet::class,
+            \UthandoNews\Form\NewsSettingsForm::class      => \UthandoNews\Form\NewsSettingsForm::class,
         ],
     ],
     'hydrators' => [
         'invokables' => [
-            'UthandoNews' => 'UthandoNews\Hydrator\News',
+            \UthandoNews\Hydrator\NewsHydrator::class => \UthandoNews\Hydrator\NewsHydrator::class,
         ],
     ],
     'input_filters' => [
         'invokables' => [
-            'UthandoNews' => 'UthandoNews\InputFilter\News',
+            \UthandoNews\InputFilter\NewsInputFilter::class => \UthandoNews\InputFilter\NewsInputFilter::class,
         ],
     ],
     'service_manager' => [
         'factories' => [
-            'UthandoNewsFeedOptions'    => 'UthandoNews\Service\NewsFeedOptionsFactory',
-            'UthandoNewsOptions'        => 'UthandoNews\Service\NewsOptionsFactory',
+            \UthandoNews\Options\FeedOptions::class    => \UthandoNews\Service\NewsFeedOptionsFactory::class,
+            \UthandoNews\Options\NewsOptions::class    => \UthandoNews\Service\NewsOptionsFactory::class,
         ]
     ],
     'uthando_mappers' => [
         'invokables' => [
-            'UthandoNews' => 'UthandoNews\Mapper\News',
+            \UthandoNews\Mapper\NewsMapper::class => \UthandoNews\Mapper\NewsMapper::class,
         ],
     ],
     'uthando_models' => [
         'invokables' => [
-            'UthandoNews' => 'UthandoNews\Model\News',
+            \UthandoNews\Model\NewsModel::class => \UthandoNews\Model\NewsModel::class,
         ]
     ],
     'uthando_services' => [
         'invokables' => [
-            'UthandoNews' => 'UthandoNews\Service\News',
+            \UthandoNews\Service\News::class => \UthandoNews\Service\News::class,
         ],
     ],
     'view_helpers' => [
@@ -67,7 +67,7 @@ return [
                     'route' => '/news',
                     'defaults' => [
                         '__NAMESPACE__' => 'UthandoNews\Controller',
-                        'controller'    => 'News',
+                        'controller'    => \UthandoNews\Controller\NewsController::class,
                         'action'        => 'view',
                     ],
                 ],
@@ -142,7 +142,7 @@ return [
                     ],
                     'defaults' => [
                         '__NAMESPACE__' => 'UthandoNews\Controller',
-                        'controller'    => 'News',
+                        'controller'    => \UthandoNews\Controller\NewsController::class,
                         'action'        => 'news-item',
                     ],
                 ],
@@ -153,7 +153,7 @@ return [
                     'route' => '/news/feed',
                     'defaults' => [
                         '__NAMESPACE__' => 'UthandoNews\Controller',
-                        'controller'    => 'Feed',
+                        'controller'    => \UthandoNews\Controller\FeedController::class,
                         'action'        => 'feed',
                     ],
                 ],

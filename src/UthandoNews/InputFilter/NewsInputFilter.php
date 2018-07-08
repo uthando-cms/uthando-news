@@ -11,14 +11,20 @@
 
 namespace UthandoNews\InputFilter;
 
+use UthandoCommon\Filter\Slug;
+use UthandoCommon\Filter\Ucwords;
+use Zend\Filter\Digits;
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
 use Zend\InputFilter\InputFilter;
+use Zend\Validator\StringLength;
 
 /**
- * Class News
+ * Class NewsForm
  *
  * @package UthandoNews\InputFilter
  */
-class News extends InputFilter
+class NewsInputFilter extends InputFilter
 {
     public function init()
     {
@@ -26,9 +32,9 @@ class News extends InputFilter
             'name' => 'newsId',
             'required' => false,
             'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
-                ['name' => 'Digits']
+                ['name' => StringTrim::class],
+                ['name' => StripTags::class],
+                ['name' => Digits::class],
             ],
         ]);
 
@@ -36,8 +42,8 @@ class News extends InputFilter
             'name' => 'userId',
             'required'      => true,
             'filters'       => [
-                ['name' => 'StripTags'],
-                ['name' => 'StringTrim'],
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class],
             ],
             'validators'    => [
 
@@ -48,12 +54,12 @@ class News extends InputFilter
             'name' => 'title',
             'required'      => true,
             'filters'       => [
-                ['name' => 'StripTags'],
-                ['name' => 'StringTrim'],
-                ['name' => 'UthandoCommon\Filter\Ucwords'],
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class],
+                ['name' => Ucwords::class],
             ],
             'validators'    => [
-                ['name' => 'StringLength', 'options' => [
+                ['name' => StringLength::class, 'options' => [
                     'encoding' => 'UTF-8',
                     'min' => 2,
                     'max' => 255
@@ -65,12 +71,12 @@ class News extends InputFilter
             'name' => 'slug',
             'required'      => true,
             'filters'       => [
-                ['name' => 'StripTags'],
-                ['name' => 'StringTrim'],
-                ['name' => 'UthandoCommon\Filter\Slug'],
+                ['name' => StripTags::class],
+                ['name' => StringTrim::class],
+                ['name' => Slug::class],
             ],
             'validators'    => [
-                ['name' => 'StringLength', 'options' => [
+                ['name' => StringLength::class, 'options' => [
                     'encoding' => 'UTF-8',
                     'min' => 2,
                     'max' => 255
@@ -82,11 +88,11 @@ class News extends InputFilter
             'name' => 'image',
             'required' => false,
             'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
+                ['name' => StringTrim::class],
+                ['name' => StripTags::class],
             ],
             'validators' => [
-                ['name'    => 'StringLength','options' => [
+                ['name'    => StringLength::class,'options' => [
                     'encoding' => 'UTF-8',
                     'max'      => 255,
                 ]],
@@ -97,11 +103,11 @@ class News extends InputFilter
             'name' => 'layout',
             'required' => false,
             'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
+                ['name' => StringTrim::class],
+                ['name' => StripTags::class],
             ],
             'validators' => [
-                ['name'    => 'StringLength','options' => [
+                ['name'    => StringLength::class,'options' => [
                     'encoding' => 'UTF-8',
                     'max'      => 255,
                 ]],
@@ -112,11 +118,11 @@ class News extends InputFilter
             'name' => 'lead',
             'required' => false,
             'filters' => [
-                ['name' => 'StringTrim'],
-                ['name' => 'StripTags'],
+                ['name' => StringTrim::class],
+                ['name' => StripTags::class],
             ],
             'validators' => [
-                ['name'    => 'StringLength','options' => [
+                ['name'    => StringLength::class,'options' => [
                     'encoding' => 'UTF-8',
                 ]],
             ],
@@ -126,11 +132,11 @@ class News extends InputFilter
             'name' => 'description',
             'required'      => true,
             'filters'       => [
-                ['name' => 'StripTags'],
-                ['name' => 'StringTrim'],
+                ['name' => StringTrim::class],
+                ['name' => StripTags::class],
             ],
             'validators'    => [
-                ['name' => 'StringLength', 'options' => [
+                ['name' => StringLength::class, 'options' => [
                     'encoding' => 'UTF-8',
                     'min' => 30,
                     'max' => 255

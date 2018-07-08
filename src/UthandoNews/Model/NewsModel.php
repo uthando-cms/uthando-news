@@ -19,11 +19,11 @@ use UthandoCommon\Model\ModelInterface;
 use UthandoUser\Model\UserTrait;
 
 /**
- * Class News
+ * Class NewsForm
  *
  * @package UthandoNews\Model
  */
-class News implements ModelInterface
+class NewsModel implements ModelInterface
 {
     use Model,
         UserTrait,

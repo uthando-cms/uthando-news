@@ -11,26 +11,29 @@
 namespace UthandoNews\Controller;
 
 use UthandoCommon\Service\ServiceTrait;
+use UthandoNews\Options\FeedOptions;
+use UthandoNews\Options\NewsOptions;
+use UthandoNews\Service\News;
 use Zend\Feed\Writer\Feed as ZendFeed;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\FeedModel;
 
 
-class Feed extends AbstractActionController
+class FeedController extends AbstractActionController
 {
     use ServiceTrait;
 
     public function __construct()
     {
-        $this->setServiceName('UthandoNews');
+        $this->setServiceName(News::class);
     }
 
     public function feedAction()
     {
         /* @var \UthandoNews\Options\NewsOptions $options */
-        $options = $this->getService('UthandoNewsOptions');
+        $options = $this->getService(NewsOptions::class);
         /* @var \UthandoNews\Options\FeedOptions $feedOptions */
-        $feedOptions = $this->getService('UthandoNewsFeedOptions');
+        $feedOptions = $this->getService(FeedOptions::class);
 
         $newService = $this->getService();
         $newsItems = $newService->search([
@@ -48,7 +51,7 @@ class Feed extends AbstractActionController
         $feed->setLink($base . $this->url()->fromRoute('home'));
         $feed->setDateModified(time());
 
-        /* @var \UthandoNews\Model\News $item */
+        /* @var \UthandoNews\Model\NewsModel $item */
         foreach ($newsItems as $item) {
             $entry = $feed->createEntry();
             $entry->addAuthor([

@@ -12,15 +12,15 @@
 namespace UthandoNews\Mapper;
 
 use UthandoCommon\Mapper\AbstractDbMapper;
-use UthandoNews\Model\News as NewsModel;
+use UthandoNews\Model\NewsModel as NewsModel;
 use Zend\Db\Sql\Select;
 
 /**
- * Class News
+ * Class NewsForm
  *
  * @package UthandoNews\Mapper
  */
-class News extends AbstractDbMapper
+class NewsMapper extends AbstractDbMapper
 {
     protected $table = 'news';
     protected $primary = 'newsId';

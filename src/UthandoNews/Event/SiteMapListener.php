@@ -10,6 +10,7 @@
 
 namespace UthandoNews\Event;
 
+use UthandoNews\Service\News;
 use Zend\EventManager\Event;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -39,7 +40,7 @@ class SiteMapListener implements ListenerAggregateInterface
         $navigation = $e->getParam('navigation');
 
         /* @var \UthandoNews\Service\News $newsService */
-        $newsService = $e->getTarget()->getService('UthandoNews');
+        $newsService = $e->getTarget()->getService(News::class);
 
         /* @var \UthandoNavigation\Service\Menu $menuService */
         $menuService = $e->getTarget()->getService('UthandoNavigationMenu');
@@ -50,7 +51,7 @@ class SiteMapListener implements ListenerAggregateInterface
 
         $pages = [];
 
-        /* @var \UthandoNews\Model\News $newsItem */
+        /* @var \UthandoNews\Model\NewsModel $newsItem */
         foreach ($newsItems as $newsItem) {
             $pages[$newsItem->getSlug()] = [
                 'label'     => $newsItem->getTitle(),

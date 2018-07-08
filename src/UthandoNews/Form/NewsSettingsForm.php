@@ -14,16 +14,16 @@ use TwbBundle\Form\View\Helper\TwbBundleForm;
 use Zend\Form\Form;
 
 /**
- * Class NewsSettings
+ * Class NewsSettingsForm
  *
  * @package UthandoNews\Form
  */
-class NewsSettings extends Form
+class NewsSettingsForm extends Form
 {
     public function init()
     {
         $this->add([
-            'type' => 'UthandoNewsOptionsFieldSet',
+            'type' => NewsOptionsFieldSet::class,
             'name' => 'options',
             'options' => [
                 'label' => 'News Settings',
@@ -35,7 +35,7 @@ class NewsSettings extends Form
         ]);
 
         $this->add([
-            'type' => 'UthandoNewsFeedFieldSet',
+            'type' => NewsFeedFieldSet::class,
             'name' => 'feed',
             'options' => [
                 'label' => 'News Feed',

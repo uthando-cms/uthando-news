@@ -8,8 +8,8 @@ return [
                     'privileges' => [
                         'allow' => [
                             'controllers' => [
-                                'UthandoNews\Controller\Feed' => ['action' => ['feed']],
-                                'UthandoNews\Controller\News' => ['action' => ['view', 'news-item']],
+                                \UthandoNews\Controller\FeedController::class => ['action' => ['feed']],
+                                \UthandoNews\Controller\NewsController::class => ['action' => ['view', 'news-item']],
                             ],
                         ],
                     ],
@@ -18,18 +18,18 @@ return [
                     'privileges' => [
                         'allow' => [
                             'controllers' => [
-                                'UthandoNews\Controller\NewsAdmin'  => ['action' => 'all'],
-                                'UthandoNews\Controller\Settings'   => ['action' => 'all'],
+                                \UthandoNews\Controller\NewsAdminController::class => ['action' => 'all'],
+                                \UthandoNews\Controller\SettingsController::class => ['action' => 'all'],
                             ],
                         ],
                     ],
                 ],
             ],
             'resources' => [
-                'UthandoNews\Controller\Feed',
-                'UthandoNews\Controller\News',
-                'UthandoNews\Controller\NewsAdmin',
-                'UthandoNews\Controller\Settings',
+                \UthandoNews\Controller\FeedController::class,
+                \UthandoNews\Controller\NewsController::class,
+                \UthandoNews\Controller\NewsAdminController::class,
+                \UthandoNews\Controller\SettingsController::class,
             ],
         ],
     ],

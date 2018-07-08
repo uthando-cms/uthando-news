@@ -31,14 +31,14 @@ return [
                         'visible' => false,
                     ],
                     'add' => [
-                        'label'     => 'Add News ',
+                        'label'     => 'Add News',
                         'action'    => 'add',
                         'route'     => 'admin/news/edit',
                         'resource'  => 'menu:admin',
                         'visible' => false,
                     ],
                     'edit' => [
-                        'label'     => 'Edit News ',
+                        'label'     => 'Edit News',
                         'action'    => 'edit',
                         'route'     => 'admin/news/edit',
                         'resource'  => 'menu:admin',

@@ -14,7 +14,7 @@ return [
                             ],
                             'defaults' => [
                                 '__NAMESPACE__' => 'UthandoNews\Controller',
-                                'controller'    => 'NewsAdmin',
+                                'controller'    => \UthandoNews\Controller\NewsAdminController::class,
                                 'action'        => 'index',
                             ],
                         ],
@@ -53,7 +53,7 @@ return [
                                 'options' => [
                                     'route' => '/settings',
                                     'defaults' => [
-                                        'controller' => 'Settings',
+                                        'controller' => \UthandoNews\Controller\SettingsController::class,
                                         'action' => 'index',
                                     ]
                                 ],
