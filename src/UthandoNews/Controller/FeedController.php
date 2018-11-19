@@ -13,7 +13,7 @@ namespace UthandoNews\Controller;
 use UthandoCommon\Service\ServiceTrait;
 use UthandoNews\Options\FeedOptions;
 use UthandoNews\Options\NewsOptions;
-use UthandoNews\Service\News;
+use UthandoNews\Service\NewsService;
 use Zend\Feed\Writer\Feed as ZendFeed;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\FeedModel;
@@ -25,7 +25,7 @@ class FeedController extends AbstractActionController
 
     public function __construct()
     {
-        $this->setServiceName(News::class);
+        $this->setServiceName(NewsService::class);
     }
 
     public function feedAction()

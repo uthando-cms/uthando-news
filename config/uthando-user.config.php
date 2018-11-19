@@ -1,5 +1,10 @@
 <?php
 
+use UthandoNews\Controller\FeedController;
+use UthandoNews\Controller\NewsAdminController;
+use UthandoNews\Controller\NewsController;
+use UthandoNews\Controller\SettingsController;
+
 return [
     'uthando_user' => [
         'acl' => [
@@ -8,8 +13,8 @@ return [
                     'privileges' => [
                         'allow' => [
                             'controllers' => [
-                                \UthandoNews\Controller\FeedController::class => ['action' => ['feed']],
-                                \UthandoNews\Controller\NewsController::class => ['action' => ['view', 'news-item']],
+                                FeedController::class => ['action' => ['feed']],
+                                NewsController::class => ['action' => ['view', 'news-item']],
                             ],
                         ],
                     ],
@@ -18,18 +23,18 @@ return [
                     'privileges' => [
                         'allow' => [
                             'controllers' => [
-                                \UthandoNews\Controller\NewsAdminController::class => ['action' => 'all'],
-                                \UthandoNews\Controller\SettingsController::class => ['action' => 'all'],
+                                NewsAdminController::class => ['action' => 'all'],
+                                SettingsController::class => ['action' => 'all'],
                             ],
                         ],
                     ],
                 ],
             ],
             'resources' => [
-                \UthandoNews\Controller\FeedController::class,
-                \UthandoNews\Controller\NewsController::class,
-                \UthandoNews\Controller\NewsAdminController::class,
-                \UthandoNews\Controller\SettingsController::class,
+                FeedController::class,
+                NewsController::class,
+                NewsAdminController::class,
+                SettingsController::class,
             ],
         ],
     ],

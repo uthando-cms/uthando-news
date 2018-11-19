@@ -13,7 +13,7 @@ namespace UthandoNews\Controller;
 
 use UthandoCommon\Service\ServiceTrait;
 use UthandoNews\Options\NewsOptions;
-use UthandoNews\Service\News;
+use UthandoNews\Service\NewsService;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
@@ -21,7 +21,7 @@ use Zend\View\Model\ViewModel;
  * Class NewsForm
  *
  * @package UthandoNews\Controller
- * @method \UthandoNews\Service\News getService()
+ * @method \UthandoNews\Service\NewsService getService()
  */
 class NewsController extends AbstractActionController
 {
@@ -29,7 +29,7 @@ class NewsController extends AbstractActionController
 
     public function __construct()
     {
-        $this->setServiceName(News::class);
+        $this->setServiceName(NewsService::class);
     }
 
     public function viewAction()

@@ -1,5 +1,8 @@
 <?php
 
+use UthandoNews\Controller\NewsAdminController;
+use UthandoNews\Controller\SettingsController;
+
 return [
     'router' => [
         'routes' => [
@@ -14,7 +17,7 @@ return [
                             ],
                             'defaults' => [
                                 '__NAMESPACE__' => 'UthandoNews\Controller',
-                                'controller'    => \UthandoNews\Controller\NewsAdminController::class,
+                                'controller'    => NewsAdminController::class,
                                 'action'        => 'index',
                             ],
                         ],
@@ -53,7 +56,7 @@ return [
                                 'options' => [
                                     'route' => '/settings',
                                     'defaults' => [
-                                        'controller' => \UthandoNews\Controller\SettingsController::class,
+                                        'controller' => SettingsController::class,
                                         'action' => 'index',
                                     ]
                                 ],

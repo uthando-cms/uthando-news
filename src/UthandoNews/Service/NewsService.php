@@ -18,6 +18,7 @@ use UthandoNews\InputFilter\NewsInputFilter;
 use UthandoNews\Mapper\NewsMapper as NewsMapper;
 use UthandoNews\Model\NewsModel as NewsModel;
 use UthandoNews\Options\NewsOptions;
+use UthandoUser\Service\UserService;
 use Zend\EventManager\Event;
 
 /**
@@ -26,7 +27,7 @@ use Zend\EventManager\Event;
  * @package UthandoNews\Service
  * @method NewsMapper getMapper($mapperClass = null, array $options = [])
  */
-class News extends AbstractRelationalMapperService
+class NewsService extends AbstractRelationalMapperService
 {
     protected $form         = NewsForm::class;
     protected $hydrator     = NewsHydrator::class;
@@ -40,7 +41,7 @@ class News extends AbstractRelationalMapperService
     protected $referenceMap = [
         'user' => [
             'refCol' => 'userId',
-            'service' => 'UthandoUser',
+            'service' => UserService::class,
         ],
     ];
 

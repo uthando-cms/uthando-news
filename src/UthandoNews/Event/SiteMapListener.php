@@ -10,7 +10,9 @@
 
 namespace UthandoNews\Event;
 
-use UthandoNews\Service\News;
+use UthandoNavigation\Service\MenuService;
+use UthandoNavigation\Service\SiteMapService;
+use UthandoNews\Service\NewsService;
 use Zend\EventManager\Event;
 use Zend\EventManager\EventManagerInterface;
 use Zend\EventManager\ListenerAggregateInterface;
@@ -30,7 +32,7 @@ class SiteMapListener implements ListenerAggregateInterface
         $events = $events->getSharedManager();
 
         $this->listeners[] = $events->attach([
-            'UthandoNavigation\Service\SiteMap',
+            SiteMapService::class,
         ], ['uthando.site-map'], [$this, 'addPages']);
     }
 
@@ -39,11 +41,11 @@ class SiteMapListener implements ListenerAggregateInterface
         /* @var \Zend\Navigation\Navigation $navigation */
         $navigation = $e->getParam('navigation');
 
-        /* @var \UthandoNews\Service\News $newsService */
-        $newsService = $e->getTarget()->getService(News::class);
+        /* @var NewsService $newsService */
+        $newsService = $e->getTarget()->getService(NewsService::class);
 
-        /* @var \UthandoNavigation\Service\Menu $menuService */
-        $menuService = $e->getTarget()->getService('UthandoNavigationMenu');
+        /* @var MenuService $menuService */
+        $menuService = $e->getTarget()->getService(MenuService::class);
 
         $newsItems = $newsService->search([
             'sort' => '-dateCreated',

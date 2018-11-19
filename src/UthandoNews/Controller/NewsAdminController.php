@@ -11,7 +11,7 @@
 namespace UthandoNews\Controller;
 
 use UthandoCommon\Controller\AbstractCrudController;
-use UthandoNews\Service\News;
+use UthandoNews\Service\NewsService;
 
 /**
  * Class NewsAdminController
@@ -21,7 +21,7 @@ use UthandoNews\Service\News;
 class NewsAdminController extends AbstractCrudController
 {
     protected $controllerSearchOverrides = ['sort' => 'newsId'];
-    protected $serviceName = News::class;
+    protected $serviceName = NewsService::class;
     protected $route = 'admin/news';
     protected $routes = [];
 }
