@@ -11,7 +11,6 @@
 
 namespace UthandoNews\Model;
 
-use UthandoArticle\Model\Article;
 use UthandoCommon\Model\DateCreatedTrait;
 use UthandoCommon\Model\DateModifiedTrait;
 use UthandoCommon\Model\Model;
