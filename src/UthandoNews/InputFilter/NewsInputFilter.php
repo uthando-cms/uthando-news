@@ -12,11 +12,13 @@
 namespace UthandoNews\InputFilter;
 
 use UthandoCommon\Filter\Slug;
-use UthandoCommon\Filter\Ucwords;
+use UthandoNews\Options\NewsOptions;
 use Zend\Filter\Digits;
 use Zend\Filter\StringTrim;
 use Zend\Filter\StripTags;
 use Zend\InputFilter\InputFilter;
+use Zend\ServiceManager\ServiceLocatorAwareInterface;
+use Zend\ServiceManager\ServiceLocatorAwareTrait;
 use Zend\Validator\StringLength;
 
 /**
@@ -24,10 +26,14 @@ use Zend\Validator\StringLength;
  *
  * @package UthandoNews\InputFilter
  */
-class NewsInputFilter extends InputFilter
+class NewsInputFilter extends InputFilter implements ServiceLocatorAwareInterface
 {
+    use ServiceLocatorAwareTrait;
+
     public function init()
     {
+        $options = $this->getNewsOptions();
+
         $this->add([
             'name' => 'newsId',
             'required' => false,
@@ -45,19 +51,21 @@ class NewsInputFilter extends InputFilter
                 ['name' => StripTags::class],
                 ['name' => StringTrim::class],
             ],
-            'validators'    => [
-
-            ],
         ]);
+
+        $titleFilters = [
+            ['name' => StripTags::class],
+            ['name' => StringTrim::class],
+        ];
+
+        if ('none' !== $options->getTitleCase() && class_exists($options->getTitleCase())) {
+            $titleFilters[]['name'] = $options->getTitleCase();
+        }
 
         $this->add([
             'name' => 'title',
             'required'      => true,
-            'filters'       => [
-                ['name' => StripTags::class],
-                ['name' => StringTrim::class],
-                ['name' => Ucwords::class],
-            ],
+            'filters'       => $titleFilters,
             'validators'    => [
                 ['name' => StringLength::class, 'options' => [
                     'encoding' => 'UTF-8',
@@ -144,4 +152,10 @@ class NewsInputFilter extends InputFilter
             ],
         ]);
     }
-} 
+
+    protected function getNewsOptions(): NewsOptions
+    {
+        $newsOptions = $this->getServiceLocator()->getServiceLocator()->get(NewsOptions::class);
+        return $newsOptions;
+    }
+}

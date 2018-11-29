@@ -11,11 +11,15 @@
 namespace UthandoNews\Form;
 
 use TwbBundle\Form\View\Helper\TwbBundleForm;
+use UthandoCommon\Filter\Ucwords;
 use UthandoNews\Options\FeedOptions;
+use Zend\Filter\StringTrim;
+use Zend\Filter\StripTags;
 use Zend\Form\Element\Text;
 use Zend\Form\Fieldset;
 use Zend\Hydrator\ClassMethods;
 use Zend\InputFilter\InputFilterProviderInterface;
+use Zend\Validator\StringLength;
 
 class NewsFeedFieldSet extends Fieldset implements InputFilterProviderInterface
 {
@@ -58,6 +62,34 @@ class NewsFeedFieldSet extends Fieldset implements InputFilterProviderInterface
 
     public function getInputFilterSpecification()
     {
-        return [];
+        return [
+            'title' => [
+                'required' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class],
+                    ['name' => Ucwords::class],
+                ],
+                'validators' => [
+                    ['name' => StringLength::class, 'options' => [
+                        'encoding' => 'UTF-8',
+                        'max' => 255,
+                    ]]
+                ],
+            ],
+            'description' => [
+                'required' => true,
+                'filters' => [
+                    ['name' => StringTrim::class],
+                    ['name' => StripTags::class],
+                ],
+                'validators' => [
+                    ['name' => StringLength::class, 'options' => [
+                        'encoding' => 'UTF-8',
+                        'max' => 255,
+                    ]]
+                ]
+            ],
+        ];
     }
 }
